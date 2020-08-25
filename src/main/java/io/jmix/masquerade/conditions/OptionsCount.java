@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+public class OptionsCount extends SpecificCondition {
+    private int count;
+
+    public OptionsCount(int count) {
+        super("optionsCount");
+        this.count = count;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + count + "'";
+    }
+
+    public int getCount() {
+        return count;
+    }
+}

@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.util;
+
+public class NotImplementedException extends RuntimeException {
+    public NotImplementedException() {
+        super("This UI component still in development");
+    }
+}

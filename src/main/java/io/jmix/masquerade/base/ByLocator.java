@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.base;
+
+import org.openqa.selenium.By;
+
+public interface ByLocator {
+    By getBy();
+}

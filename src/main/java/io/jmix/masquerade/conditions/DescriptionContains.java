@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+public class DescriptionContains extends SpecificCondition {
+    private final String descriptionSubstring;
+
+    public DescriptionContains(String descriptionSubstring) {
+        super("descriptionContains");
+        this.descriptionSubstring = descriptionSubstring;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + descriptionSubstring + "'";
+    }
+
+    public String getDescriptionSubstring() {
+        return descriptionSubstring;
+    }
+}

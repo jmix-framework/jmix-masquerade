@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.sys;
+
+public interface ProxyFactory {
+    Object createProxy(Class interfaceClass, Object instance);
+}

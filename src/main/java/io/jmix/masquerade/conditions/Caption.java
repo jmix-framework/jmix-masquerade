@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+public class Caption extends SpecificCondition {
+    private final String caption;
+
+    public Caption(String caption) {
+        super("caption");
+        this.caption = caption;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + caption + "'";
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+}

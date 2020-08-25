@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+public interface SpecificConditionHandler {
+    boolean apply(SpecificCondition condition);
+}

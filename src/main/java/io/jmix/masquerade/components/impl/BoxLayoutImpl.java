@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components.impl;
+
+import io.jmix.masquerade.components.BoxLayout;
+import org.openqa.selenium.By;
+
+public class BoxLayoutImpl extends AbstractComponent<BoxLayout> implements BoxLayout {
+    public BoxLayoutImpl(By by) {
+        super(by);
+    }
+}

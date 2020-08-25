@@ -1,6 +1,4 @@
 .gradle/
 .idea/
 build/
-modules/web/out/
-modules/connector/out/
 *.iml

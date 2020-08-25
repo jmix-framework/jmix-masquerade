@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components.impl;
+
+import io.jmix.masquerade.components.FieldGroup;
+import org.openqa.selenium.By;
+
+public class FieldGroupImpl extends AbstractComponent<FieldGroup> implements FieldGroup {
+    public FieldGroupImpl(By by) {
+        super(by);
+    }
+}

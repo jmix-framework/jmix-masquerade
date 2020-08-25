@@ -14,4 +14,28 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+import com.google.common.collect.ImmutableList;
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.List;
+
+public class ContainOptions extends SpecificCondition {
+    private List<String> options;
+
+    public ContainOptions(List<String> options) {
+        super("containOptions");
+
+        this.options = ImmutableList.copyOf(options);
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " : " + StringUtils.join(options, ',');
+    }
+}

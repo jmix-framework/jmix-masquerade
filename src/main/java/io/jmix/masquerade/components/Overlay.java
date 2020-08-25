@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+/**
+ * Marker interface for overlay components
+ */
+public interface Overlay {
+}

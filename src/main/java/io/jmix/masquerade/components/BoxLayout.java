@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+public interface BoxLayout extends Container<BoxLayout> {
+
+}

@@ -14,4 +14,15 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import io.jmix.masquerade.util.Log;
+
+public interface LookupPickerField extends Field<LookupPickerField>, HasActions, HasOptionsPopup<LookupPickerField> {
+    @Log
+    LookupPickerField setValue(String value);
+    String getValue();
+
+    @Log
+    LookupPickerField setFilter(String filter);
+}

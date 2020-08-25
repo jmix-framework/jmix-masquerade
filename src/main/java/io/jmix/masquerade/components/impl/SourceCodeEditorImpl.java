@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components.impl;
+
+import io.jmix.masquerade.components.SourceCodeEditor;
+import org.openqa.selenium.By;
+
+public class SourceCodeEditorImpl extends AbstractComponent<SourceCodeEditor> implements SourceCodeEditor {
+    public SourceCodeEditorImpl(By by) {
+        super(by);
+    }
+}

@@ -14,4 +14,16 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.util;
+
+import io.jmix.masquerade.components.Component;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+/**
+ * Annotation for methods of {@link Component} that should be logged.
+ */
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Log {
+}

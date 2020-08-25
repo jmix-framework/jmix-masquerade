@@ -14,4 +14,16 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import io.jmix.masquerade.util.Log;
+
+import java.io.File;
+
+public interface FileUploadField extends Component<FileUploadField> {
+    @Log
+    void upload(File file);
+
+    @Log
+    void clear();
+}

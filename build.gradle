@@ -14,95 +14,68 @@
  * limitations under the License.
  */
 
-allprojects {
-    group 'com.haulmont.masquerade'
-
-    if (rootProject.hasProperty('buildVersion')) {
-        version rootProject.buildVersion
-    } else {
-        version '2.1-SNAPSHOT'
-    }
-
-    repositories {
-        if (System.getenv('HAULMONT_REPOSITORY_URL') != null) {
-            maven {
-                url System.getenv('HAULMONT_REPOSITORY_URL')
-                credentials {
-                    username System.getenv('HAULMONT_REPOSITORY_USER')
-                    password System.getenv('HAULMONT_REPOSITORY_PASSWORD')
-                }
-            }
-        } else {
-            mavenCentral()
-        }
-    }
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'maven'
 }
 
-configure([project(':masquerade-web'), project(':masquerade-connector')]) {
-    apply plugin: 'java'
-    apply plugin: 'maven'
+group 'io.jmix.masquerade'
 
-    sourceCompatibility = 1.8
+if (rootProject.hasProperty('buildVersion')) {
+    version rootProject.buildVersion
+} else {
+    version '0.0.1-SNAPSHOT'
+}
 
-    task sourceJar(type: Jar) {
-        from sourceSets.main.java
-        from sourceSets.main.resources
-        classifier = 'sources'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.java
+    from sourceSets.main.resources
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourceJar
+}
+
+if (rootProject.hasProperty('uploadUrl')) {
+    configurations {
+        deployerJars
     }
 
-    artifacts {
-        archives sourceJar
+    dependencies {
+        deployerJars('org.apache.maven.wagon:wagon-http:2.12')
     }
 
-    if (rootProject.hasProperty('uploadUrl')) {
-        configurations {
-            deployerJars
-        }
+    def uploadUrl = rootProject.uploadUrl
+    def uploadUser = rootProject.uploadUser
+    def uploadPassword = rootProject.uploadPassword
 
-        dependencies {
-            deployerJars('org.apache.maven.wagon:wagon-http:2.12')
-        }
-
-        def uploadUrl = rootProject.uploadUrl
-        def uploadUser = rootProject.uploadUser
-        def uploadPassword = rootProject.uploadPassword
-
-        uploadArchives.configure {
-            repositories.mavenDeployer {
-                name = 'httpDeployer'
-                configuration = configurations.deployerJars
-                repository(url: uploadUrl) {
-                    authentication(userName: uploadUser, password: uploadPassword)
-                }
+    uploadArchives.configure {
+        repositories.mavenDeployer {
+            name = 'httpDeployer'
+            configuration = configurations.deployerJars
+            repository(url: uploadUrl) {
+                authentication(userName: uploadUser, password: uploadPassword)
             }
         }
     }
-
-    build.dependsOn javadoc
 }
 
-configure(project(':masquerade-connector')) {
-    dependencies {
-        compile 'com.squareup.retrofit2:retrofit:2.4.0'
-        compile 'com.squareup.retrofit2:converter-gson:2.4.0'
-        compile 'com.google.guava:guava:27.0-jre'
-        compile 'org.slf4j:slf4j-api:1.7.25'
+build.dependsOn javadoc
 
-        testCompile 'junit:junit:4.12'
-        testCompile 'org.slf4j:slf4j-simple:1.7.25'
-    }
-}
+dependencies {
+    compile 'com.leacox.motif:motif:0.1'
+    compile 'com.codeborne:selenide:5.14.0'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
 
-configure(project(':masquerade-web')) {
-    apply plugin: 'groovy'
-
-    dependencies {
-        compile 'com.leacox.motif:motif:0.1'
-        compile 'com.codeborne:selenide:5.13.0'
-        compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
-
-        testCompile 'org.codehaus.groovy:groovy:2.5.4'
-        testCompile 'junit:junit:4.12'
-        testCompile 'org.slf4j:slf4j-simple:1.7.25'
-    }
+    testCompile 'org.codehaus.groovy:groovy:3.0.5'
+    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testCompile 'org.slf4j:slf4j-simple:1.7.30'
 }

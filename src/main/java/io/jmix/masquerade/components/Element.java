@@ -14,4 +14,15 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import javax.annotation.Nullable;
+
+public interface Element {
+    Component getParent();
+
+    @Nullable
+    default String getLoggingId() {
+        return null;
+    }
+}

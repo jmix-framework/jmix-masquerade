@@ -14,4 +14,11 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import io.jmix.masquerade.base.ByLocator;
+import io.jmix.masquerade.base.SelenideElementWrapper;
+
+@SuppressWarnings("unchecked")
+public interface Component<T> extends SelenideElementWrapper<T>, ByLocator {
+}

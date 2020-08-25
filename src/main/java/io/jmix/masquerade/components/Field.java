@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+public interface Field<T extends Field> extends Component<T> {
+}

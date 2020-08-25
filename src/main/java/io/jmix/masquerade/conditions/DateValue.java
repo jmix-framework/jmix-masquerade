@@ -14,4 +14,22 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.conditions;
+
+public class DateValue extends SpecificCondition {
+    private String expectedValue;
+
+    public DateValue(String expectedValue) {
+        super("dateValue");
+        this.expectedValue = expectedValue;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + expectedValue + "'";
+    }
+
+    public String getExpectedValue() {
+        return expectedValue;
+    }
+}

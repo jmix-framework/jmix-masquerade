@@ -14,4 +14,20 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import io.jmix.masquerade.Components;
+import org.openqa.selenium.By;
+
+import static io.jmix.masquerade.Selectors.byChain;
+import static io.jmix.masquerade.Selectors.byPath;
+
+public interface Container<T> extends Component<T> {
+    default <C> C child(Class<C> childClazz, String... childPath) {
+        return child(childClazz, byPath(childPath));
+    }
+
+    default <C> C child(Class<C> childClazz, By childBy) {
+        return Components.wire(childClazz, byChain(getBy(), childBy));
+    }
+}

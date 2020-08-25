@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
-rootProject.name = 'masquerade'
+package io.jmix.masquerade.components;
+
+import io.jmix.masquerade.util.Log;
+
+public interface TextInput<T extends TextInput> extends Field<T> {
+    @Log
+    T setValue(String value);
+    String getValue();
+}
