@@ -16,13 +16,30 @@
 
 package io.jmix.masquerade.components;
 
+import io.jmix.masquerade.Conditions;
 import io.jmix.masquerade.util.Log;
 
-public interface LookupPickerField extends Field<LookupPickerField>, HasActions, HasOptionsPopup<LookupPickerField> {
+/**
+ * ComboBox component.
+ * <br>
+ * Supported conditions:
+ * <ul>
+ *     <li>{@link Conditions#VISIBLE}</li>
+ *     <li>{@link Conditions#HIDDEN}</li>
+ *     <li>{@link Conditions#ENABLED}</li>
+ *     <li>{@link Conditions#DISABLED}</li>
+ *     <li>{@link Conditions#REQUIRED}</li>
+ *     <li>{@link Conditions#READONLY}</li>
+ *     <li>{@link Conditions#EDITABLE}</li>
+ *     <li>{@link Conditions#value(String)}</li>
+ *     <li>{@link Conditions#valueContains(String)}</li>
+ * </ul>
+ */
+public interface ComboBox extends Field<ComboBox>, HasOptionsPopup<ComboBox> {
     @Log
-    LookupPickerField setValue(String value);
+    ComboBox setValue(String value);
     String getValue();
 
     @Log
-    LookupPickerField setFilter(String filter);
+    ComboBox setFilter(String filter);
 }

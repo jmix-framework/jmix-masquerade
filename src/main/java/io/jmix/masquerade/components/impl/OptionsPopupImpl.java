@@ -37,7 +37,7 @@ import static com.codeborne.selenide.Selenide.$$;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static io.jmix.masquerade.Selectors.byChain;
 import static io.jmix.masquerade.components.HasOptionsPopup.OptionsPopup;
-import static io.jmix.masquerade.components.impl.LookupFieldImpl.*;
+import static io.jmix.masquerade.components.impl.ComboBoxImpl.*;
 import static io.jmix.masquerade.sys.TagNames.SPAN;
 import static io.jmix.masquerade.sys.TagNames.TD;
 import static io.jmix.masquerade.sys.matchers.InstanceOfCases.hasType;

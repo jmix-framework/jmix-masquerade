@@ -37,7 +37,7 @@ public class DefaultComponentConfig implements ComponentConfig {
         components.put(Label.class, LabelImpl::new);
         components.put(CheckBox.class, CheckBoxImpl::new);
         components.put(AppMenu.class, AppMenuImpl::new);
-        components.put(LookupField.class, LookupFieldImpl::new);
+        components.put(ComboBox.class, ComboBoxImpl::new);
         components.put(Table.class, TableImpl::new);
         components.put(GroupTable.class, GroupTableImpl::new);
         components.put(PopupButton.class, PopupButtonImpl::new);
@@ -47,16 +47,16 @@ public class DefaultComponentConfig implements ComponentConfig {
         components.put(FileUploadField.class, FileUploadFieldImpl::new);
         components.put(MaskedField.class, MaskedFieldImpl::new);
         components.put(GroupBox.class, GroupBoxImpl::new);
-        components.put(LookupPickerField.class, LookupPickerFieldImpl::new);
+        components.put(EntityComboBox.class, EntityComboBoxImpl::new);
         components.put(OptionsGroup.class, OptionsGroupImpl::new);
-        components.put(PickerField.class, PickerFieldImpl::new);
+        components.put(EntityPicker.class, EntityPickerImpl::new);
         components.put(Notification.class, NotificationImpl::new);
         components.put(DialogWindow.class, DialogWindowImpl::new);
         components.put(SideMenu.class, SideMenuImpl::new);
         // stubs
         components.put(BoxLayout.class, BoxLayoutImpl::new);
         components.put(TabSheet.class, TabSheetImpl::new);
-        components.put(FieldGroup.class, FieldGroupImpl::new);
+        components.put(Form.class, FormImpl::new);
         components.put(SourceCodeEditor.class, SourceCodeEditorImpl::new);
         components.put(Tree.class, TreeImpl::new);
 

@@ -17,7 +17,7 @@
 package io.jmix.masquerade.components.impl;
 
 import com.codeborne.selenide.SelenideElement;
-import io.jmix.masquerade.components.LookupField;
+import io.jmix.masquerade.components.ComboBox;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -30,7 +30,7 @@ import static com.google.common.base.Strings.isNullOrEmpty;
 import static io.jmix.masquerade.Selectors.byChain;
 import static io.jmix.masquerade.sys.TagNames.DIV;
 
-public class LookupFieldImpl extends AbstractInputComponent<LookupField> implements LookupField {
+public class ComboBoxImpl extends AbstractInputComponent<ComboBox> implements ComboBox {
     public static final String EMPTY_OPTION_VALUE = "\u00a0";
 
     public static final String V_FILTERSELECT_NEXTPAGE = "v-filterselect-nextpage";
@@ -41,7 +41,7 @@ public class LookupFieldImpl extends AbstractInputComponent<LookupField> impleme
     public static final By VAADIN_COMBOBOX_OPTIONLIST = By.id("VAADIN_COMBOBOX_OPTIONLIST");
     public static final By EMPTY_OPTION = byText(EMPTY_OPTION_VALUE);
 
-    public LookupFieldImpl(By by) {
+    public ComboBoxImpl(By by) {
         super(by);
     }
 
@@ -53,7 +53,7 @@ public class LookupFieldImpl extends AbstractInputComponent<LookupField> impleme
     }
 
     @Override
-    public LookupField setValue(String value) {
+    public ComboBox setValue(String value) {
         // todo support textInputAllowed = false
         setFilter(value);
 
@@ -67,7 +67,7 @@ public class LookupFieldImpl extends AbstractInputComponent<LookupField> impleme
     }
 
     @Override
-    public LookupField setFilter(String filter) {
+    public ComboBox setFilter(String filter) {
         SelenideElement inputImpl = getInputDelegate();
 
         inputImpl.shouldBe(visible)
@@ -89,28 +89,28 @@ public class LookupFieldImpl extends AbstractInputComponent<LookupField> impleme
     }
 
     @Override
-    public OptionsPopup<LookupField> openOptionsPopup() {
+    public OptionsPopup<ComboBox> openOptionsPopup() {
         $(byChain(by, byClassName(V_FILTERSELECT_BUTTON)))
                 .shouldBe(visible)
                 .click();
 
-        OptionsPopupImpl<LookupField> optionsPopup = getOptionsPopupElement();
+        OptionsPopupImpl<ComboBox> optionsPopup = getOptionsPopupElement();
         optionsPopup.shouldBe(visible);
 
         return optionsPopup;
     }
 
     @Override
-    public OptionsPopup<LookupField> getOptionsPopup() {
-        OptionsPopupImpl<LookupField> optionsPopup = getOptionsPopupElement();
+    public OptionsPopup<ComboBox> getOptionsPopup() {
+        OptionsPopupImpl<ComboBox> optionsPopup = getOptionsPopupElement();
         optionsPopup.shouldBe(visible);
 
         return optionsPopup;
     }
 
     @Override
-    public LookupField closeOptionsPopup() {
-        OptionsPopupImpl<LookupField> optionsPopup = getOptionsPopupElement();
+    public ComboBox closeOptionsPopup() {
+        OptionsPopupImpl<ComboBox> optionsPopup = getOptionsPopupElement();
         optionsPopup.shouldBe(visible);
 
         $(byChain(by, DIV))
@@ -120,7 +120,7 @@ public class LookupFieldImpl extends AbstractInputComponent<LookupField> impleme
         return this;
     }
 
-    protected OptionsPopupImpl<LookupField> getOptionsPopupElement() {
+    protected OptionsPopupImpl<ComboBox> getOptionsPopupElement() {
         return new OptionsPopupImpl<>(VAADIN_COMBOBOX_OPTIONLIST, this);
     }
 }

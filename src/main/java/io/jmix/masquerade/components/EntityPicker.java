@@ -19,7 +19,7 @@ package io.jmix.masquerade.components;
 import io.jmix.masquerade.Conditions;
 
 /**
- * PickerField component.
+ * EntityPicker component.
  * <br>
  * Supported conditions:
  * <ul>
@@ -34,6 +34,6 @@ import io.jmix.masquerade.Conditions;
  *     <li>{@link Conditions#valueContains(String)}</li>
  * </ul>
  */
-public interface PickerField extends Field<PickerField>, HasActions {
+public interface EntityPicker extends Field<EntityPicker>, HasActions {
     String getValue();
 }

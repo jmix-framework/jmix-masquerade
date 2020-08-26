@@ -36,7 +36,7 @@ public class LoginWindow extends Composite<LoginWindow> {
     private Button loginSubmitButton;
 
     @Wire
-    private LookupField localesSelect;
+    private ComboBox localesSelect;
 
     @Wire
     private Label welcomeLabel;
@@ -60,7 +60,7 @@ public class LoginWindow extends Composite<LoginWindow> {
         return rememberMeCheckBox;
     }
 
-    public LookupField getLocalesSelect() {
+    public ComboBox getLocalesSelect() {
         return localesSelect;
     }
 

@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.components;
+package io.jmix.masquerade.components.impl;
 
-public interface FieldGroup extends Container<FieldGroup> {
+import io.jmix.masquerade.components.Form;
+import org.openqa.selenium.By;
+
+public class FormImpl extends AbstractComponent<Form> implements Form {
+    public FormImpl(By by) {
+        super(by);
+    }
 }

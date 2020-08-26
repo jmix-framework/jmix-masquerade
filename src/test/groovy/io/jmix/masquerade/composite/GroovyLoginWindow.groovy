@@ -21,7 +21,7 @@ import io.jmix.masquerade.base.Composite
 import io.jmix.masquerade.components.Button
 import io.jmix.masquerade.components.CheckBox
 import io.jmix.masquerade.components.Label
-import io.jmix.masquerade.components.LookupField
+import io.jmix.masquerade.components.ComboBox
 import io.jmix.masquerade.components.PasswordField
 import io.jmix.masquerade.components.TextField
 
@@ -42,5 +42,5 @@ class GroovyLoginWindow extends Composite<GroovyLoginWindow> {
     CheckBox rememberMeCheckBox
 
     @Wire
-    LookupField localesSelect
+    ComboBox localesSelect
 }

@@ -17,7 +17,7 @@
 package io.jmix.masquerade.components.impl;
 
 import io.jmix.masquerade.Components;
-import io.jmix.masquerade.components.PickerField;
+import io.jmix.masquerade.components.EntityPicker;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.visible;
@@ -27,8 +27,8 @@ import static io.jmix.masquerade.Selectors.byCubaId;
 import static io.jmix.masquerade.sys.TagNames.DIV;
 import static io.jmix.masquerade.sys.VaadinClassNames.disabledClass;
 
-public class PickerFieldImpl extends AbstractInputComponent<PickerField> implements PickerField {
-    public PickerFieldImpl(By by) {
+public class EntityPickerImpl extends AbstractInputComponent<EntityPicker> implements EntityPicker {
+    public EntityPickerImpl(By by) {
         super(by);
     }
 
