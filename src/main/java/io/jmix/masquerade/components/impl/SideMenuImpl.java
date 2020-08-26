@@ -16,10 +16,10 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.Wait;
-import static io.jmix.masquerade.Selectors.$c;
+import static io.jmix.masquerade.Selectors.$j;
 import static io.jmix.masquerade.Selectors.byChain;
 import static io.jmix.masquerade.Selectors.byClassName;
-import static io.jmix.masquerade.Selectors.byCubaId;
+import static io.jmix.masquerade.Selectors.byJTestId;
 import static io.jmix.masquerade.sys.matchers.ConditionCases.componentApply;
 import static com.leacox.motif.Motif.match;
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
@@ -30,7 +30,7 @@ public class SideMenuImpl extends AbstractComponent<SideMenu> implements SideMen
     protected static final String SIDE_MENU_ITEM_HEADER_OPEN = "c-sidemenu-item-header-open";
     protected static final String COLLAPSED_CLASS_NAME = "collapsed";
 
-    protected static final By MENU_COLLAPSE_BUTTON = byCubaId("collapseMenuButton");
+    protected static final By MENU_COLLAPSE_BUTTON = byJTestId("collapseMenuButton");
 
     public SideMenuImpl(By by) {
         super(by);
@@ -60,7 +60,7 @@ public class SideMenuImpl extends AbstractComponent<SideMenu> implements SideMen
     public void openItem(String... path) {
         for (String s : path) {
             String itemXpath = String.format(
-                    "//div[contains(@class, 'c-sidemenu-item') and @cuba-id=%s]",
+                    "//div[contains(@class, 'c-sidemenu-item') and @j-test-id=%s]",
                     Quotes.escape(s));
 
             SelenideElement menuItemElement = $(byXpath(itemXpath))
@@ -105,7 +105,7 @@ public class SideMenuImpl extends AbstractComponent<SideMenu> implements SideMen
     }
 
     protected void toggleCollapsed() {
-        Button collapseMenuButton = $c(Button.class, MENU_COLLAPSE_BUTTON);
+        Button collapseMenuButton = $j(Button.class, MENU_COLLAPSE_BUTTON);
         if (collapseMenuButton.exists()) {
             collapseMenuButton.shouldBe(visible)
                     .click();

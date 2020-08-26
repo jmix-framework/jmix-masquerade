@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test
 import static com.codeborne.selenide.Selenide.open
 import static io.jmix.masquerade.Components.wire
 import static io.jmix.masquerade.Conditions.*
-import static io.jmix.masquerade.Selectors.$c
+import static io.jmix.masquerade.Selectors.$j
 import static io.jmix.masquerade.components.Notification.Type
 import static org.junit.jupiter.api.Assertions.assertNotNull
 
@@ -56,7 +56,7 @@ class GroovyLoginTest {
 
             loginButton.click()
 
-            $c(Notification)
+            $j(Notification)
                     .shouldBe(VISIBLE)
                     .shouldHave(captionContains("Failed"))
                     .shouldHave(descriptionContains("Unknown login"))

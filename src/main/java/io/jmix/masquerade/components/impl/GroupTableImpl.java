@@ -2,6 +2,7 @@ package io.jmix.masquerade.components.impl;
 
 import com.codeborne.selenide.SelenideElement;
 import io.jmix.masquerade.Conditions;
+import io.jmix.masquerade.Selectors;
 import io.jmix.masquerade.components.GroupTable;
 import io.jmix.masquerade.components.Table;
 import io.jmix.masquerade.conditions.SpecificCondition;
@@ -17,7 +18,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static io.jmix.masquerade.Selectors.$c;
+import static io.jmix.masquerade.Selectors.$j;
 import static io.jmix.masquerade.Selectors.byChain;
 import static io.jmix.masquerade.sys.matchers.ConditionCases.componentApply;
 import static com.leacox.motif.MatchesExact.eq;
@@ -120,7 +121,7 @@ public class GroupTableImpl extends AbstractComponent<GroupTable> implements Gro
 
     @Override
     public Table asTable() {
-        return $c(Table.class, by);
+        return $j(Table.class, by);
     }
 
     protected List<SelenideElement> getExpandedRows() {

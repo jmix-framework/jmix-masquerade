@@ -111,9 +111,9 @@ public class PopupButtonImpl extends AbstractComponent<PopupButton> implements P
                                 .shouldNotHave(disabledClass)
                                 .click();
                     })
-                    .when(hasType(Selectors.ByCubaId.class)).then(byCubaId -> {
+                    .when(hasType(Selectors.ByJTestId.class)).then(byJTestId -> {
 
-                        $(byChain(by, byCubaId))
+                        $(byChain(by, byJTestId))
                                 .shouldBe(visible)
                                 .shouldNotHave(disabledClass)
                                 .click();
@@ -122,8 +122,8 @@ public class PopupButtonImpl extends AbstractComponent<PopupButton> implements P
         }
 
         @Override
-        public void trigger(String cubaId) {
-            trigger(byCubaId(cubaId));
+        public void trigger(String jTestId) {
+            trigger(byJTestId(jTestId));
         }
 
         @Override

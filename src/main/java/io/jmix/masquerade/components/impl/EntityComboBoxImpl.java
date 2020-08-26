@@ -28,7 +28,7 @@ import static com.codeborne.selenide.Selectors.byClassName;
 import static com.codeborne.selenide.Selenide.$;
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static io.jmix.masquerade.Selectors.byChain;
-import static io.jmix.masquerade.Selectors.byCubaId;
+import static io.jmix.masquerade.Selectors.byJTestId;
 import static io.jmix.masquerade.components.impl.ComboBoxImpl.VAADIN_COMBOBOX_OPTIONLIST;
 import static io.jmix.masquerade.components.impl.ComboBoxImpl.V_FILTERSELECT_BUTTON;
 import static io.jmix.masquerade.sys.TagNames.DIV;
@@ -84,7 +84,7 @@ public class EntityComboBoxImpl extends AbstractInputComponent<EntityComboBox> i
 
     @Override
     public void triggerAction(Action action) {
-        $(byChain(by, DIV, byCubaId(action.getId())))
+        $(byChain(by, DIV, byJTestId(action.getId())))
                 .shouldBe(visible)
                 .shouldNotHave(disabledClass)
                 .click();

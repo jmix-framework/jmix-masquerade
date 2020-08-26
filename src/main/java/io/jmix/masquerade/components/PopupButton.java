@@ -41,7 +41,7 @@ public interface PopupButton extends Component<PopupButton> {
          * <ul>
          * <li>{@link Selectors#byText(String)}</li>
          * <li>{@link Selectors#withText(String)}</li>
-         * <li>{@link Selectors#byCubaId(String)} </li>
+         * <li>{@link Selectors#byJTestId(String)} </li>
          * </ul>
          *
          * @param actionBy action selector
@@ -49,7 +49,7 @@ public interface PopupButton extends Component<PopupButton> {
         @Log
         void trigger(By actionBy);
         @Log
-        void trigger(String cubaId);
+        void trigger(String jTestId);
 
         List<String> getOptions();
     }

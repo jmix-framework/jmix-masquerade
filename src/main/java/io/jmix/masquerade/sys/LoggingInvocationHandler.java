@@ -144,8 +144,8 @@ public class LoggingInvocationHandler implements InvocationHandler {
         if (by instanceof Selectors.ByChain) {
             return formatBy(((Selectors.ByChain) by).getLastBy());
         }
-        if (by instanceof Selectors.ByCubaId) {
-            return ((Selectors.ByCubaId) by).getCubaId();
+        if (by instanceof Selectors.ByJTestId) {
+            return ((Selectors.ByJTestId) by).getJTestId();
         }
         return by.toString();
     }

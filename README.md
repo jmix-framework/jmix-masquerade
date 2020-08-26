@@ -80,8 +80,8 @@ Also, all test methods can be declared here.
  
 All class attributes should be marked with the ```@Wire``` annotation. 
 This annotation has optional `path` element which allows userService to define 
-the path to the component using the `cuba-id` parameter. If the component does 
-not have the `cuba-id` parameter, you can use the ```@FindBy``` annotation 
+the path to the component using the `j-test-id` parameter. If the component does 
+not have the `j-test-id` parameter, you can use the ```@FindBy``` annotation 
 instead. This annotation has a list of optional parameters, like `name`, 
 `className`, `id` and so on, which helps to identify the component.
 
@@ -89,7 +89,7 @@ The type of the attribute in the class corresponds to the type of the screen
 component. If the component has a type which is not defined in the library, use 
 the `Untyped` type. 
 
-The name of the attribute corresponds to the `cuba-id` attribute of a DOM 
+The name of the attribute corresponds to the `j-test-id` attribute of a DOM 
 element that corresponds to the UI component. 
 
 ```java
@@ -248,7 +248,7 @@ welcomeLabel.shouldHave(Conditions.value('Welcome to CUBA!'));
 
 ## How to work with the Selenide elements
     
-If the component does not have the `cuba-id` parameter, you can use the 
+If the component does not have the `j-test-id` parameter, you can use the 
 ```@FindBy``` annotation. This annotation has a list of optional parameters, 
 like `name`, `className`, `id` and so on, which helps to identify the component.
 
@@ -271,7 +271,7 @@ public SelenideElement welcomeLabelTest;
 Another way to define the `SelenideElement` type attribute is using the 
 ```@Wire``` annotation. You can write the `SelenideElement` type instead of 
 masquerade types, but the name of the attribute should correspond to the 
-`cuba-id` attribute of a DOM element that corresponds to the UI component.
+`j-test-id` attribute of a DOM element that corresponds to the UI component.
 
 ```java
 @Wire

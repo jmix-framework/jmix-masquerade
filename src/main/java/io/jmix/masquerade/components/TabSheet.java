@@ -25,7 +25,7 @@ import org.openqa.selenium.By;
 
 import java.util.List;
 
-import static io.jmix.masquerade.Selectors.byCubaId;
+import static io.jmix.masquerade.Selectors.byJTestId;
 
 /**
  * Button component.
@@ -44,7 +44,7 @@ public interface TabSheet extends Container<TabSheet> {
      * <br>
      * Supported selectors
      * <ul>
-     *     <li>{@link Selectors#byCubaId(String)}</li>
+     *     <li>{@link Selectors#byJTestId(String)}</li>
      *     <li>{@link Selectors#byIndex(int)}</li>
      *     <li>{@link Selectors#byText(String)}</li>
      *     <li>{@link Selectors#withText(String)}</li>
@@ -55,8 +55,8 @@ public interface TabSheet extends Container<TabSheet> {
      */
     Tab getTab(By tabBy);
 
-    default Tab getTab(String cubaId) {
-        return getTab(byCubaId(cubaId));
+    default Tab getTab(String jTestId) {
+        return getTab(byJTestId(jTestId));
     }
 
     List<Tab> getVisibleTabs();

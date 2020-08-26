@@ -76,13 +76,13 @@ public class TabSheetImpl extends AbstractComponent<TabSheet> implements TabShee
 
                     return new TabImpl(byChain(by, xpath(tabXpath)), "Tab.index: " + index);
                 })
-                .when(hasType(ByCubaId.class)).get(byCubaId -> {
-                    String id = byCubaId.getCubaId();
+                .when(hasType(ByJTestId.class)).get(byJTestId -> {
+                    String id = byJTestId.getJTestId();
 
                     String tabXpath = ".//td[contains(@class, 'v-tabsheet-tabitemcell') " +
-                            "and @cuba-id=" + Quotes.escape(id) + "]";
+                            "and @j-test-id=" + Quotes.escape(id) + "]";
 
-                    return new TabImpl(byChain(by, xpath(tabXpath)), "Tab.cubaId: " + id);
+                    return new TabImpl(byChain(by, xpath(tabXpath)), "Tab.jTestId: " + id);
                 })
                 .getMatch();
     }

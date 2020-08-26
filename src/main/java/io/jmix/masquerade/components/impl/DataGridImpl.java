@@ -27,7 +27,7 @@ import static io.jmix.masquerade.Conditions.ENABLED;
 import static io.jmix.masquerade.Conditions.LOADED;
 import static io.jmix.masquerade.Conditions.VISIBLE;
 import static io.jmix.masquerade.Selectors.byChain;
-import static io.jmix.masquerade.Selectors.byCubaId;
+import static io.jmix.masquerade.Selectors.byJTestId;
 import static io.jmix.masquerade.components.impl.TableImpl.MAC_OS_PLATFORM;
 import static io.jmix.masquerade.sys.VaadinClassNames.selectedClass;
 import static io.jmix.masquerade.sys.matchers.ConditionCases.componentApply;
@@ -336,18 +336,18 @@ public class DataGridImpl extends AbstractComponent<DataGrid> implements DataGri
 
                     return $(byChain(by,byClassName("v-grid-header"), byXpath(tdXpath)));
                 })
-                .when(hasType(Selectors.ByCubaId.class)).get(byCubaId -> {
+                .when(hasType(Selectors.ByJTestId.class)).get(byJTestId -> {
 
-                    String cubaId = byCubaId.getCubaId();
+                    String jTestId = byJTestId.getJTestId();
 
-                    return $(byChain(by, byClassName("v-grid-header"), byCubaId(cubaId)));
+                    return $(byChain(by, byClassName("v-grid-header"), byJTestId(jTestId)));
                 })
                 .getMatch();
     }
 
     @Override
     public SelenideElement getHeaderCell(String columnId) {
-        return  $(byChain(by, byClassName("v-grid-header"), byCubaId("column_" + columnId)));
+        return  $(byChain(by, byClassName("v-grid-header"), byJTestId("column_" + columnId)));
     }
 
     @Override
@@ -361,7 +361,7 @@ public class DataGridImpl extends AbstractComponent<DataGrid> implements DataGri
             columnId = columnId.substring("column_".length());
         }
 
-        SelenideElement columnHeaderCell = $(byChain(by, byClassName("v-grid-header"), byCubaId("column_" + columnId)))
+        SelenideElement columnHeaderCell = $(byChain(by, byClassName("v-grid-header"), byJTestId("column_" + columnId)))
                 .shouldBe(visible)
                 .shouldHave(cssClass("sortable"));
 

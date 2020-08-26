@@ -55,7 +55,7 @@ public class AppMenuImpl extends AbstractComponent<AppMenu> implements AppMenu {
             String s = path[i];
 
             String itemXpath = "//span[contains(@class, 'v-menubar-menuitem') " +
-                    "and @cuba-id=" + Quotes.escape(s) + "]";
+                    "and @j-test-id=" + Quotes.escape(s) + "]";
 
             SelenideElement menuItemElement;
 

@@ -23,7 +23,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static io.jmix.masquerade.Selectors.byChain;
-import static io.jmix.masquerade.Selectors.byCubaId;
+import static io.jmix.masquerade.Selectors.byJTestId;
 import static io.jmix.masquerade.sys.TagNames.DIV;
 import static io.jmix.masquerade.sys.VaadinClassNames.disabledClass;
 
@@ -34,7 +34,7 @@ public class EntityPickerImpl extends AbstractInputComponent<EntityPicker> imple
 
     @Override
     public void triggerAction(Action action) {
-        $(byChain(by, DIV, byCubaId(action.getId())))
+        $(byChain(by, DIV, byJTestId(action.getId())))
                 .shouldBe(visible)
                 .shouldNotHave(disabledClass)
                 .click();

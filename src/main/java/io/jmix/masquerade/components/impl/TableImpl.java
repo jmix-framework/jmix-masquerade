@@ -359,7 +359,7 @@ public class TableImpl extends AbstractComponent<Table> implements Table {
             columnId = columnId.substring("column_".length());
         }
 
-        SelenideElement columnHeaderCell = $(byChain(by, byClassName("v-table-header"), byCubaId("column_" + columnId)))
+        SelenideElement columnHeaderCell = $(byChain(by, byClassName("v-table-header"), byJTestId("column_" + columnId)))
                 .shouldBe(visible)
                 .shouldHave(cssClass("v-table-header-sortable"));
 

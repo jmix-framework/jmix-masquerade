@@ -26,7 +26,7 @@ import static io.jmix.masquerade.Conditions.EDITABLE;
 import static io.jmix.masquerade.Conditions.ENABLED;
 import static io.jmix.masquerade.Conditions.VISIBLE;
 import static io.jmix.masquerade.Conditions.caption;
-import static io.jmix.masquerade.Selectors.$c;
+import static io.jmix.masquerade.Selectors.$j;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LoginTest {
@@ -34,7 +34,7 @@ public class LoginTest {
     public void login() {
         open("http://localhost:8080/app");
 
-        LoginWindow loginWindow = $c(LoginWindow.class);
+        LoginWindow loginWindow = $j(LoginWindow.class);
 
         assertNotNull(loginWindow.getLoginField());
         assertNotNull(loginWindow.getPasswordField());

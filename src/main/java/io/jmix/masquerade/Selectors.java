@@ -39,22 +39,22 @@ public class Selectors extends com.codeborne.selenide.Selectors {
         checkNotNull(path);
 
         if (path.length == 1) {
-            return byCubaId(path[0]);
+            return byJTestId(path[0]);
         }
 
         By[] bys = new By[path.length];
 
         for (int i = 0; i < path.length; i++) {
-            bys[i] = byCubaId(path[i]);
+            bys[i] = byJTestId(path[i]);
         }
 
         return byChain(bys);
     }
 
-    public static By byCubaId(String cubaId) {
-        checkNotNull(cubaId);
+    public static By byJTestId(String jTestId) {
+        checkNotNull(jTestId);
 
-        return new ByCubaId(cubaId);
+        return new ByJTestId(jTestId);
     }
 
     public static By byChain(By... bys) {
@@ -122,38 +122,38 @@ public class Selectors extends com.codeborne.selenide.Selectors {
     }
 
     /**
-     * Get selenide element by cuba-id.
+     * Get selenide element by j-test-id.
      *
-     * @param cubaId cuba-id value
+     * @param jTestId j-test-id value
      * @return SelenideElement
      */
-    public static SelenideElement $c(String cubaId) {
-        return $(byCubaId(cubaId));
+    public static SelenideElement $j(String jTestId) {
+        return $(byJTestId(jTestId));
     }
 
     /**
-     * Get selenide element by cuba-id path.
+     * Get selenide element by j-test-id path.
      *
-     * @param path cuba-id path
+     * @param path j-test-id path
      * @return SelenideElement
      */
-    public static SelenideElement $c(String... path) {
+    public static SelenideElement $j(String... path) {
         return $(byPath(path));
     }
 
-    public static <T> T $c(Class<T> clazz) {
+    public static <T> T $j(Class<T> clazz) {
         return wire(clazz);
     }
 
-    public static <T> T $c(Class<T> clazz, String... path) {
+    public static <T> T $j(Class<T> clazz, String... path) {
         return wire(clazz, path);
     }
 
-    public static <T> T $c(Class<T> clazz, By by) {
+    public static <T> T $j(Class<T> clazz, By by) {
         return wire(clazz, by);
     }
 
-    public static <T> T $c(Class<T> clazz, SelenideElement target) {
+    public static <T> T $j(Class<T> clazz, SelenideElement target) {
         return wire(clazz, target);
     }
 
@@ -175,22 +175,22 @@ public class Selectors extends com.codeborne.selenide.Selectors {
         }
     }
 
-    public static class ByCubaId extends By.ByCssSelector {
-        private final String cubaId;
+    public static class ByJTestId extends By.ByCssSelector {
+        private final String jTestId;
 
-        public ByCubaId(String cubaId) {
-            super(String.format("[cuba-id='%s']", cubaId));
+        public ByJTestId(String jTestId) {
+            super(String.format("[j-test-id='%s']", jTestId));
 
-            this.cubaId = cubaId;
+            this.jTestId = jTestId;
         }
 
-        public String getCubaId() {
-            return cubaId;
+        public String getJTestId() {
+            return jTestId;
         }
 
         @Override
         public String toString() {
-            return "By.cubaId: " + cubaId;
+            return "By.jTestId: " + jTestId;
         }
     }
 

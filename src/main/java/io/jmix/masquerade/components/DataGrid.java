@@ -153,7 +153,7 @@ public interface DataGrid extends Component<DataGrid> {
      * <li>{@link Selectors#byText(String)}</li>
      * <li>{@link Selectors#withText(String)}</li>
      * <li>{@link Selectors#byClassName(String)}</li>
-     * <li>{@link Selectors#byCubaId(String)}</li>
+     * <li>{@link Selectors#byJTestId(String)}</li>
      * </ul>
      *
      * @param cellBy cell selector
