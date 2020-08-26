@@ -25,7 +25,7 @@ group 'io.jmix.masquerade'
 if (rootProject.hasProperty('buildVersion')) {
     version rootProject.buildVersion
 } else {
-    version '0.0.1-SNAPSHOT'
+    version '1.0-SNAPSHOT'
 }
 
 sourceCompatibility = 1.8
