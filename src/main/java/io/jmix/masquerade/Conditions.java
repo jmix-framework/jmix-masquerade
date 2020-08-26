@@ -17,9 +17,9 @@
 package io.jmix.masquerade;
 
 import com.codeborne.selenide.Condition;
-import io.jmix.masquerade.components.Component;
-import io.jmix.masquerade.components.Notification;
-import io.jmix.masquerade.conditions.*;
+import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.component.Notification;
+import io.jmix.masquerade.condition.*;
 
 import java.util.Arrays;
 import java.util.List;

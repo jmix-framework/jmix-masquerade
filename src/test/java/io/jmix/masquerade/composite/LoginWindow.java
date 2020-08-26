@@ -18,7 +18,7 @@ package io.jmix.masquerade.composite;
 
 import io.jmix.masquerade.Wire;
 import io.jmix.masquerade.base.Composite;
-import io.jmix.masquerade.components.*;
+import io.jmix.masquerade.component.*;
 import org.openqa.selenium.support.FindBy;
 
 

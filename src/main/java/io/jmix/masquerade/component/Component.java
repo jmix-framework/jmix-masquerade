@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.base.ByLocator;
+import io.jmix.masquerade.base.SelenideElementWrapper;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+@SuppressWarnings("unchecked")
+public interface Component<T> extends SelenideElementWrapper<T>, ByLocator {
 }

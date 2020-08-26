@@ -14,16 +14,28 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+import com.google.common.collect.ImmutableList;
+import org.apache.commons.lang3.StringUtils;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.util.List;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public class Options extends SpecificCondition {
+    private List<String> options;
+
+    public Options(List<String> options) {
+        super("options");
+
+        this.options = ImmutableList.copyOf(options);
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " : " + StringUtils.join(options, ',');
+    }
 }

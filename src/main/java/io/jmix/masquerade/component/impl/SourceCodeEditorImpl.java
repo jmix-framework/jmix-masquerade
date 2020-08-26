@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component.impl;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.component.SourceCodeEditor;
+import org.openqa.selenium.By;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public class SourceCodeEditorImpl extends AbstractComponent<SourceCodeEditor> implements SourceCodeEditor {
+    public SourceCodeEditorImpl(By by) {
+        super(by);
+    }
 }

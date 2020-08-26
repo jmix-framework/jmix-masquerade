@@ -16,8 +16,8 @@
 
 package io.jmix.masquerade.config;
 
-import io.jmix.masquerade.components.*;
-import io.jmix.masquerade.components.impl.*;
+import io.jmix.masquerade.component.*;
+import io.jmix.masquerade.component.impl.*;
 import org.openqa.selenium.By;
 
 import java.util.HashMap;

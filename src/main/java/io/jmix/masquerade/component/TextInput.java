@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.util.Log;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface TextInput<T extends TextInput> extends Field<T> {
+    @Log
+    T setValue(String value);
+    String getValue();
 }

@@ -16,7 +16,7 @@
 
 package io.jmix.masquerade;
 
-import io.jmix.masquerade.components.Untyped;
+import io.jmix.masquerade.component.Untyped;
 import io.jmix.masquerade.composite.LoginWindow;
 import org.junit.jupiter.api.Test;
 

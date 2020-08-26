@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.util.Log;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import java.io.File;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface FileUploadField extends Component<FileUploadField> {
+    @Log
+    void upload(File file);
+
+    @Log
+    void clear();
 }

@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.base;
+package io.jmix.masquerade.component.impl;
 
 import com.codeborne.selenide.SelenideElement;
-import io.jmix.masquerade.Components;
-import io.jmix.masquerade.Wire;
-import io.jmix.masquerade.component.Container;
-import io.jmix.masquerade.component.impl.AbstractSpecificConditionHandler;
+import io.jmix.masquerade.component.Untyped;
 import org.openqa.selenium.By;
 
-/**
- * Convenient parent class for composite UI components: panels, screens, tabs, etc.
- *
- * @param <T> type of class
- */
-public abstract class Composite<T> extends AbstractSpecificConditionHandler<T> implements Container<T> {
-    @Wire
-    private SelenideElement impl;
-    @Wire
-    private By by;
+import static com.codeborne.selenide.Selenide.$;
+
+public class UntypedImpl implements Untyped {
+    private final SelenideElement impl;
+    private final By by;
+
+    public UntypedImpl(By by) {
+        this.impl = $(by);
+        this.by = by;
+    }
 
     @Override
     public SelenideElement getDelegate() {
@@ -42,9 +39,5 @@ public abstract class Composite<T> extends AbstractSpecificConditionHandler<T> i
     @Override
     public By getBy() {
         return by;
-    }
-
-    public <X> X actAs(Class<X> clazz) {
-        return Components.wire(clazz, by);
     }
 }

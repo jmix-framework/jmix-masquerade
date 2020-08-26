@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+public class CaptionContains extends SpecificCondition {
+    private final String captionSubstring;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+    public CaptionContains(String captionSubstring) {
+        super("captionContains");
+        this.captionSubstring = captionSubstring;
+    }
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    @Override
+    public String toString() {
+        return getName() + " '" + captionSubstring + "'";
+    }
+
+    public String getCaptionSubstring() {
+        return captionSubstring;
+    }
 }

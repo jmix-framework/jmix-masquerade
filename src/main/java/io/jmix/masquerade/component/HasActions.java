@@ -14,16 +14,29 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.util.Log;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+public interface HasActions {
+    class Action {
+        private final String id;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+        public Action(String id) {
+            this.id = id;
+        }
+
+        public String getId() {
+            return id;
+        }
+    }
+
+    Action OPEN = new Action("open");
+    Action CLEAR = new Action("clear");
+    Action LOOKUP = new Action("lookup");
+
+    @Log
+    void triggerAction(Action action);
+    @Log
+    <T> T triggerAction(Class<T> clazz, Action action);
 }

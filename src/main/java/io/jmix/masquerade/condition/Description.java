@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+public class Description extends SpecificCondition {
+    private final String description;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+    public Description(String description) {
+        super("description");
+        this.description = description;
+    }
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    @Override
+    public String toString() {
+        return getName() + " '" + description + "'";
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

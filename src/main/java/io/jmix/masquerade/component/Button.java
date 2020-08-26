@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import io.jmix.masquerade.Conditions;
+import io.jmix.masquerade.util.Log;
 
 /**
- * Annotation for methods of {@link Component} that should be logged.
+ * Button component.
+ * <br>
+ * Supported conditions:
+ * <ul>
+ *     <li>{@link Conditions#VISIBLE}</li>
+ *     <li>{@link Conditions#HIDDEN}</li>
+ *     <li>{@link Conditions#ENABLED}</li>
+ *     <li>{@link Conditions#DISABLED}</li>
+ *     <li>{@link Conditions#caption(String)}</li>
+ * </ul>
  */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface Button extends Component<Button> {
+    String getCaption();
+
+    @Log
+    Button click();
 }

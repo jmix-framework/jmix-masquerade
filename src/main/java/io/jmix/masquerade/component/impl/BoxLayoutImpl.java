@@ -14,16 +14,13 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component.impl;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.component.BoxLayout;
+import org.openqa.selenium.By;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public class BoxLayoutImpl extends AbstractComponent<BoxLayout> implements BoxLayout {
+    public BoxLayoutImpl(By by) {
+        super(by);
+    }
 }

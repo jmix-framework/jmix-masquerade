@@ -14,16 +14,23 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+public class ValueContains extends SpecificCondition {
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+    private String expectedValueSubstring;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    public ValueContains(String expectedValueSubstring) {
+        super("valueContains");
+        this.expectedValueSubstring = expectedValueSubstring;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + expectedValueSubstring + "'";
+    }
+
+    public String getExpectedValueSubstring() {
+        return expectedValueSubstring;
+    }
 }

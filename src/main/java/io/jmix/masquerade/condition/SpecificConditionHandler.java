@@ -14,16 +14,8 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface SpecificConditionHandler {
+    boolean apply(SpecificCondition condition);
 }

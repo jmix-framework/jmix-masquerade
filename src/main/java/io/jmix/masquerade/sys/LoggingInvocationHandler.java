@@ -18,8 +18,8 @@ package io.jmix.masquerade.sys;
 
 import io.jmix.masquerade.Selectors;
 import io.jmix.masquerade.base.ByLocator;
-import io.jmix.masquerade.components.Component;
-import io.jmix.masquerade.components.Element;
+import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.component.Element;
 import io.jmix.masquerade.util.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;

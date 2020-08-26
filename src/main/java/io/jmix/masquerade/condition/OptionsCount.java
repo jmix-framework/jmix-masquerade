@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+public class OptionsCount extends SpecificCondition {
+    private int count;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+    public OptionsCount(int count) {
+        super("optionsCount");
+        this.count = count;
+    }
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    @Override
+    public String toString() {
+        return getName() + " '" + count + "'";
+    }
+
+    public int getCount() {
+        return count;
+    }
 }

@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.component.Notification;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+public class NotificationType extends SpecificCondition {
+    private Notification.Type type;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    public NotificationType(Notification.Type type) {
+        super("type");
+        this.type = type;
+    }
+
+    public Notification.Type getType() {
+        return type;
+    }
+
+    @Override
+    public String toString() {
+        return getName() + " '" + type + "'";
+    }
 }

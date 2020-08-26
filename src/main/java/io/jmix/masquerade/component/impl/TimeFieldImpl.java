@@ -14,37 +14,40 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.base;
+package io.jmix.masquerade.component.impl;
 
 import com.codeborne.selenide.SelenideElement;
-import io.jmix.masquerade.Components;
-import io.jmix.masquerade.Wire;
-import io.jmix.masquerade.component.Container;
-import io.jmix.masquerade.component.impl.AbstractSpecificConditionHandler;
+import io.jmix.masquerade.component.TimeField;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 
-/**
- * Convenient parent class for composite UI components: panels, screens, tabs, etc.
- *
- * @param <T> type of class
- */
-public abstract class Composite<T> extends AbstractSpecificConditionHandler<T> implements Container<T> {
-    @Wire
-    private SelenideElement impl;
-    @Wire
-    private By by;
+import static com.codeborne.selenide.Condition.*;
+
+public class TimeFieldImpl extends AbstractInputComponent<TimeField> implements TimeField {
+    public TimeFieldImpl(By by) {
+        super(by);
+    }
 
     @Override
-    public SelenideElement getDelegate() {
+    protected SelenideElement getInputDelegate() {
         return impl;
     }
 
     @Override
-    public By getBy() {
-        return by;
+    public String getValue() {
+        return impl
+                .shouldBe(visible)
+                .getValue();
     }
 
-    public <X> X actAs(Class<X> clazz) {
-        return Components.wire(clazz, by);
+    @Override
+    public TimeField setValue(String value) {
+        impl.shouldBe(visible)
+                .shouldBe(enabled)
+                .shouldNotBe(readonly)
+                .click();
+
+        impl.sendKeys(Keys.HOME, value);
+        return this;
     }
 }

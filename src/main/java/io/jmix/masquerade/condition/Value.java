@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.condition;
 
-import io.jmix.masquerade.component.Component;
+public class Value extends SpecificCondition {
+    private String expectedValue;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+    public Value(String expectedValue) {
+        super("value");
+        this.expectedValue = expectedValue;
+    }
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+    @Override
+    public String toString() {
+        return getName() + " '" + expectedValue + "'";
+    }
+
+    public String getExpectedValue() {
+        return expectedValue;
+    }
 }

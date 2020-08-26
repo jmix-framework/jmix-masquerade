@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.base;
+package io.jmix.masquerade.component.impl;
 
 import com.codeborne.selenide.SelenideElement;
-import io.jmix.masquerade.Components;
-import io.jmix.masquerade.Wire;
-import io.jmix.masquerade.component.Container;
-import io.jmix.masquerade.component.impl.AbstractSpecificConditionHandler;
+import io.jmix.masquerade.component.TextField;
 import org.openqa.selenium.By;
 
-/**
- * Convenient parent class for composite UI components: panels, screens, tabs, etc.
- *
- * @param <T> type of class
- */
-public abstract class Composite<T> extends AbstractSpecificConditionHandler<T> implements Container<T> {
-    @Wire
-    private SelenideElement impl;
-    @Wire
-    private By by;
+import static com.codeborne.selenide.Condition.*;
+
+public class TextFieldImpl extends AbstractInputComponent<TextField> implements TextField {
+
+    public TextFieldImpl(By by) {
+        super(by);
+    }
 
     @Override
-    public SelenideElement getDelegate() {
+    protected SelenideElement getInputDelegate() {
         return impl;
     }
 
     @Override
-    public By getBy() {
-        return by;
+    public TextField setValue(String value) {
+        impl.shouldBe(visible)
+                .shouldBe(enabled)
+                .shouldNotBe(readonly)
+                .setValue(value);
+        return this;
     }
 
-    public <X> X actAs(Class<X> clazz) {
-        return Components.wire(clazz, by);
+    @Override
+    public String getValue() {
+        return impl.shouldBe(visible)
+                .getValue();
     }
 }

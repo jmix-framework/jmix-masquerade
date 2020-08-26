@@ -14,16 +14,20 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
+package io.jmix.masquerade.component;
 
-import io.jmix.masquerade.component.Component;
+import io.jmix.masquerade.Components;
+import org.openqa.selenium.By;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+import static io.jmix.masquerade.Selectors.byChain;
+import static io.jmix.masquerade.Selectors.byPath;
 
-/**
- * Annotation for methods of {@link Component} that should be logged.
- */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface Container<T> extends Component<T> {
+    default <C> C child(Class<C> childClazz, String... childPath) {
+        return child(childClazz, byPath(childPath));
+    }
+
+    default <C> C child(Class<C> childClazz, By childBy) {
+        return Components.wire(childClazz, byChain(getBy(), childBy));
+    }
 }

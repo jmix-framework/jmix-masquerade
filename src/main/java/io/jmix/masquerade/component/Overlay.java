@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.util;
-
-import io.jmix.masquerade.component.Component;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
+package io.jmix.masquerade.component;
 
 /**
- * Annotation for methods of {@link Component} that should be logged.
+ * Marker interface for overlay components
  */
-@Retention(RetentionPolicy.RUNTIME)
-public @interface Log {
+public interface Overlay {
 }
