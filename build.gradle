@@ -71,11 +71,15 @@ if (rootProject.hasProperty('uploadUrl')) {
 build.dependsOn javadoc
 
 dependencies {
-    compile 'com.leacox.motif:motif:0.1'
-    compile 'com.codeborne:selenide:5.14.0'
-    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation 'com.leacox.motif:motif:0.1'
+    implementation 'com.codeborne:selenide:5.14.0'
+    implementation ('org.jsoup:jsoup') {
+        version {
+            strictly '1.11.2'
+        }
+    }
 
-    testCompile 'org.codehaus.groovy:groovy:3.0.5'
-    testCompile 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testCompile 'org.slf4j:slf4j-simple:1.7.30'
+    testImplementation 'org.codehaus.groovy:groovy:3.0.5'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+    testImplementation 'org.slf4j:slf4j-simple:1.7.30'
 }
