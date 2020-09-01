@@ -430,34 +430,71 @@ class ButtonSamplerUiTest {
 
 ### Locally installed browser drivers
 
-Please note that you need to download one of the latest versions of the web driver depending on the browser you want to use to testing.
-For Chrome browser this is [chromedriver](http://chromedriver.chromium.org/downloads), for Firefox this is [geckodriver](https://github.com/mozilla/geckodriver/releases).
+Please note that you need to download one of the latest versions of the web 
+driver depending on the browser you want to use to testing.
+For Chrome browser this is [chromedriver](http://chromedriver.chromium.org/downloads), 
+for Firefox this is [geckodriver](https://github.com/mozilla/geckodriver/releases).
+
+#### Chrome browser
 
 If you run your tests in Chrome browser, you need to edit standard
 test configuration for the test project in IntelliJ. To do so, click the 
 *Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
 drop-down list. In the VM options field, add the following:
 
-    -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe
+```
+-Dselenide.browser=chrome 
+-Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+```
 
 where `<your_path>` is the path to the chrome driver on your computer.
 
-![Create Configuration](images/testConfiguration.png)
+![Ui Chrome Test Configuration](images/chromeTestConfiguration.png)
 
 After that select the simple test or the test class you want to run, right 
 click on it and select *Debug* option.
 
-To run the tests using Gradle, add the following task to the ```build.gradle``` file:
-
+To run the tests using Gradle, add the following task to the `build.gradle` file:
 ```groovy
 test {
      systemProperty 'selenide.browser', System.getProperty('selenide.browser')
      systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
 }
 ```
-
 After that, run the following task in the terminal:
-
-    gradle test -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe
+```
+gradle test -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe
+```
     
 where `<your_path>` is the path to the chrome driver on your computer.
+
+#### Firefox browser
+
+If you run your tests in Firefox browser, you need to edit standard
+test configuration for the test project in IntelliJ. To do so, click the 
+*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
+drop-down list. In the VM options field, add the following:
+
+```
+-Dselenide.browser=firefox
+-Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+```
+where `<your_path>` is the path to the firefox driver on your computer.
+
+![Ui Firefox Test Configuration](images/firefoxTestConfiguration.png)
+
+After that select the simple test or the test class you want to run, right 
+click on it and select *Debug* option.
+
+To run the tests using Gradle, add the following task to the `build.gradle` file:
+```groovy
+test {
+     systemProperty 'selenide.browser', System.getProperty('selenide.browser')
+     systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+}
+```
+After that, run the following task in the terminal:
+```
+gradle test -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe
+```
+where `<your_path>` is the path to the firefox driver on your computer.
