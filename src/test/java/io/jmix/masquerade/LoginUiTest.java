@@ -17,7 +17,7 @@
 package io.jmix.masquerade;
 
 import io.jmix.masquerade.component.Untyped;
-import io.jmix.masquerade.composite.LoginWindow;
+import io.jmix.masquerade.screen.LoginScreen;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -29,40 +29,37 @@ import static io.jmix.masquerade.Conditions.caption;
 import static io.jmix.masquerade.Selectors.$j;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class LoginTest {
+public class LoginUiTest {
     @Test
     public void login() {
         open("http://localhost:8080/app");
 
-        LoginWindow loginWindow = $j(LoginWindow.class);
+        LoginScreen loginScreen = $j(LoginScreen.class);
 
-        assertNotNull(loginWindow.getLoginField());
-        assertNotNull(loginWindow.getPasswordField());
+        assertNotNull(loginScreen.getUsernameField());
+        assertNotNull(loginScreen.getPasswordField());
 
-        loginWindow.getLoginField()
+        loginScreen.getUsernameField()
                 .shouldBe(EDITABLE)
                 .shouldBe(ENABLED);
 
-        loginWindow.getLoginField().setValue("masquerade");
-        loginWindow.getPasswordField().setValue("rulezzz");
+        loginScreen.getUsernameField().setValue("masquerade");
+        loginScreen.getPasswordField().setValue("rulezzz");
 
-        loginWindow.getRememberMeCheckBox().setChecked(true);
-        loginWindow.getRememberMeCheckBox().getCaption();
-
-        loginWindow.getWelcomeLabelTest()
+        loginScreen.getWelcomeLabelTest()
                 .shouldBe(VISIBLE);
 
-        loginWindow.getLoginButton()
+        loginScreen.getLoginButton()
                 .shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .shouldHave(caption("Submit"));
 
-        String caption = loginWindow.getLoginButton().getCaption();
-        boolean enabled = loginWindow.getLoginButton().is(ENABLED);
+        String caption = loginScreen.getLoginButton().getCaption();
+        boolean enabled = loginScreen.getLoginButton().is(ENABLED);
 
         Untyped loginFormLayout = wire(Untyped.class, "loginFormLayout");
         loginFormLayout.shouldBe(VISIBLE);
 
-        loginWindow.getLoginButton().click();
+        loginScreen.getLoginButton().click();
     }
 }

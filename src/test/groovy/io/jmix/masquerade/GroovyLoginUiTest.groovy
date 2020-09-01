@@ -16,41 +16,38 @@
 
 package io.jmix.masquerade
 
-import io.jmix.masquerade.components.Notification
-import io.jmix.masquerade.composite.GroovyLoginWindow
+import io.jmix.masquerade.component.Notification
+import io.jmix.masquerade.screen.GroovyLoginScreen
 import org.junit.jupiter.api.Test
 
 import static com.codeborne.selenide.Selenide.open
 import static io.jmix.masquerade.Components.wire
 import static io.jmix.masquerade.Conditions.*
 import static io.jmix.masquerade.Selectors.$j
-import static io.jmix.masquerade.components.Notification.Type
+import static io.jmix.masquerade.component.Notification.Type
 import static org.junit.jupiter.api.Assertions.assertNotNull
 
-class GroovyLoginTest {
+class GroovyLoginUiTest {
     @Test
     void login() {
         open("http://localhost:8080/app")
 
-        def loginWindow = wire(GroovyLoginWindow, 'loginMainBox')
+        def loginScreen = wire(GroovyLoginScreen, 'loginMainBox')
 
-        assertNotNull(loginWindow.loginField)
-        assertNotNull(loginWindow.passwordField)
+        assertNotNull(loginScreen.usernameField)
+        assertNotNull(loginScreen.passwordField)
 
-        loginWindow.with {
-            rememberMeCheckBox.checked = true
-            rememberMeCheckBox.checked = false
-
-            loginField.value = "masquerade"
+        loginScreen.with {
+            usernameField.value = "masquerade"
             passwordField.value = "rulezzz"
 
-            loginField
+            usernameField
                     .shouldBe(ENABLED)
                     .shouldBe(EDITABLE)
                     .shouldHave(value("masquerade"))
                     .shouldHave(valueContains("ma"))
 
-            def popup = localesSelect.openOptionsPopup()
+            def popup = localesField.openOptionsPopup()
 
             popup.shouldBe(VISIBLE)
 

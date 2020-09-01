@@ -14,33 +14,29 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.composite
+package io.jmix.masquerade.screen
 
 import io.jmix.masquerade.Wire
 import io.jmix.masquerade.base.Composite
-import io.jmix.masquerade.components.Button
-import io.jmix.masquerade.components.CheckBox
-import io.jmix.masquerade.components.Label
-import io.jmix.masquerade.components.ComboBox
-import io.jmix.masquerade.components.PasswordField
-import io.jmix.masquerade.components.TextField
+import io.jmix.masquerade.component.*
+import org.openqa.selenium.support.FindBy
 
-class GroovyLoginWindow extends Composite<GroovyLoginWindow> {
+class GroovyLoginScreen extends Composite<GroovyLoginScreen> {
     @Wire
-    Label welcomeLabel
-
-    @Wire
-    TextField loginField
+    TextField usernameField
 
     @Wire
     PasswordField passwordField
 
-    @Wire
+    @Wire(path = ["loginFormLayout", "loginButton"])
     Button loginButton
 
     @Wire
-    CheckBox rememberMeCheckBox
+    ComboBox localesField
 
     @Wire
-    ComboBox localesSelect
+    Label welcomeLabel
+
+    @FindBy(className = "c-login-caption")
+    Label welcomeLabelTest
 }

@@ -14,38 +14,39 @@
  * limitations under the License.
  */
 
-package io.jmix.masquerade.composite;
+package io.jmix.masquerade.screen;
 
 import io.jmix.masquerade.Wire;
 import io.jmix.masquerade.base.Composite;
-import io.jmix.masquerade.component.*;
+import io.jmix.masquerade.component.Button;
+import io.jmix.masquerade.component.ComboBox;
+import io.jmix.masquerade.component.Label;
+import io.jmix.masquerade.component.PasswordField;
+import io.jmix.masquerade.component.TextField;
 import org.openqa.selenium.support.FindBy;
 
 
-public class LoginWindow extends Composite<LoginWindow> {
+public class LoginScreen extends Composite<LoginScreen> {
     @Wire
-    private TextField loginField;
+    protected TextField usernameField;
 
     @Wire
-    private PasswordField passwordField;
-
-    @Wire(path = "rememberMeCheckBox")
-    private CheckBox rememberMeCheckBox;
+    protected PasswordField passwordField;
 
     @Wire(path = {"loginFormLayout", "loginButton"})
-    private Button loginSubmitButton;
+    protected Button loginButton;
 
     @Wire
-    private ComboBox localesSelect;
+    protected ComboBox localesField;
 
     @Wire
-    private Label welcomeLabel;
+    protected Label welcomeLabel;
 
     @FindBy(className = "c-login-caption")
-    private Label welcomeLabelTest;
+    protected Label welcomeLabelTest;
 
-    public TextField getLoginField() {
-        return loginField;
+    public TextField getUsernameField() {
+        return usernameField;
     }
 
     public PasswordField getPasswordField() {
@@ -53,15 +54,11 @@ public class LoginWindow extends Composite<LoginWindow> {
     }
 
     public Button getLoginButton() {
-        return loginSubmitButton;
+        return loginButton;
     }
 
-    public CheckBox getRememberMeCheckBox() {
-        return rememberMeCheckBox;
-    }
-
-    public ComboBox getLocalesSelect() {
-        return localesSelect;
+    public ComboBox getLocalesField() {
+        return localesField;
     }
 
     public Label getWelcomeLabel() {
