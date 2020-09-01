@@ -20,10 +20,17 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import io.jmix.masquerade.Conditions;
-import io.jmix.masquerade.Selectors.*;
+import io.jmix.masquerade.Selectors.ByCells;
+import io.jmix.masquerade.Selectors.ByIndex;
+import io.jmix.masquerade.Selectors.ByRowColIndexes;
+import io.jmix.masquerade.Selectors.ByRowIndex;
+import io.jmix.masquerade.Selectors.BySelected;
+import io.jmix.masquerade.Selectors.ByTargetClassName;
+import io.jmix.masquerade.Selectors.ByTargetText;
+import io.jmix.masquerade.Selectors.ByVisibleRows;
+import io.jmix.masquerade.Selectors.WithTargetText;
 import io.jmix.masquerade.component.Table;
 import io.jmix.masquerade.condition.SpecificCondition;
-import io.jmix.masquerade.sys.TagNames;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -37,17 +44,19 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Condition.cssClass;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byClassName;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
-import static io.jmix.masquerade.Conditions.*;
-import static io.jmix.masquerade.Selectors.*;
+import static com.leacox.motif.MatchesExact.eq;
+import static com.leacox.motif.Motif.match;
+import static io.jmix.masquerade.Conditions.ENABLED;
+import static io.jmix.masquerade.Conditions.LOADED;
+import static io.jmix.masquerade.Conditions.VISIBLE;
+import static io.jmix.masquerade.Selectors.byChain;
+import static io.jmix.masquerade.Selectors.byJTestId;
 import static io.jmix.masquerade.sys.VaadinClassNames.selectedClass;
 import static io.jmix.masquerade.sys.matcher.ConditionCases.componentApply;
 import static io.jmix.masquerade.sys.matcher.InstanceOfCases.hasType;
-import static com.leacox.motif.MatchesExact.eq;
-import static com.leacox.motif.Motif.match;
 
 public class TableImpl extends AbstractComponent<Table> implements Table {
 
@@ -220,7 +229,7 @@ public class TableImpl extends AbstractComponent<Table> implements Table {
                     int rowIndex = byColRow.getRowIndex() + 1;
                     int colIndex = byColRow.getColIndex() + 1;
 
-                    String tdsXpath = "(.//tr)[" + rowIndex + "]//td[" + colIndex +"]";
+                    String tdsXpath = "(.//tr)[" + rowIndex + "]//td[" + colIndex + "]";
 
                     return $(byChain(by, byClassName("v-table-table"), byXpath(tdsXpath)));
                 })
@@ -324,33 +333,6 @@ public class TableImpl extends AbstractComponent<Table> implements Table {
         }
 
         return rows;
-    }
-
-    @Override
-    public SelenideElement find(String cellValue) {
-        SelenideElement textElement = $(byChain(by, byClassName("v-table-cell-content"), byText(cellValue)))
-                .shouldBe(visible);
-
-        return textElement.parent().parent();
-    }
-
-    @Override
-    public SelenideElement getRow(int rowNumber) {
-        return getAllLines().get(rowNumber);
-    }
-
-    @Override
-    public ElementsCollection getCells(int row) {
-        return getAllLines().get(row).findAll(TagNames.TD);
-    }
-
-    @Override
-    @Deprecated
-    public ElementsCollection getAllLines() {
-        this.shouldBe(VISIBLE)
-                .shouldBe(LOADED);
-
-        return impl.findAll(TagNames.TR);
     }
 
     @Override

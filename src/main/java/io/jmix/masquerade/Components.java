@@ -90,38 +90,6 @@ public class Components {
         return wireClassBy(clazz, byTarget(target));
     }
 
-    /**
-     * @deprecated It is recommended to use {@link Selectors#$c(Class)} instead.
-     */
-    @Deprecated
-    public static <T> T _$(Class<T> clazz) {
-        return wire(clazz);
-    }
-
-    /**
-     * @deprecated It is recommended to use {@link Selectors#$c(Class, String...)} instead.
-     */
-    @Deprecated
-    public static <T> T _$(Class<T> clazz, String... path) {
-        return wire(clazz, path);
-    }
-
-    /**
-     * @deprecated It is recommended to use {@link Selectors#$c(Class, By)} instead.
-     */
-    @Deprecated
-    public static <T> T _$(Class<T> clazz, By by) {
-        return wire(clazz, by);
-    }
-
-    /**
-     * @deprecated It is recommended to use {@link Selectors#$c(Class, SelenideElement)} instead.
-     */
-    @Deprecated
-    public static <T> T _$(Class<T> clazz, SelenideElement target) {
-        return wire(clazz, target);
-    }
-
     protected static <T> T wireClassBy(Class<T> clazz, By by) {
         if (by == null) {
             throw new IllegalArgumentException("By cannot be null");

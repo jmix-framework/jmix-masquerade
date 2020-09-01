@@ -23,9 +23,6 @@ import io.jmix.masquerade.Selectors;
 import io.jmix.masquerade.util.Log;
 import org.openqa.selenium.By;
 
-import static com.codeborne.selenide.Condition.visible;
-import static io.jmix.masquerade.Selectors.*;
-
 /**
  * Table component.
  * <br>
@@ -166,46 +163,6 @@ public interface Table extends Component<Table> {
      */
     @Log
     ElementsCollection selectRows(By rowBy);
-
-    /**
-     * Will be removed in 2.0
-     *
-     * @deprecated Use {@link #getCell(By)} with {@link Selectors#byText(String)}
-     */
-    @Deprecated
-    default SelenideElement find(String cellValue) {
-        return getCell(byText(cellValue))
-                .shouldBe(visible);
-    }
-
-    /**
-     * Will be removed in 2.0
-     *
-     * @deprecated Use {@link #getRow(By)} with {@link Selectors#byIndex(int)}
-     */
-    @Deprecated
-    default SelenideElement getRow(int rowNumber) {
-        return getRow(byIndex(rowNumber));
-    }
-
-    /**
-     * Will be removed in 2.0
-     *
-     * @deprecated Use {@link #getCells(By)} with {@link Selectors#byRowIndex(int)}
-     */
-    @Deprecated
-    default ElementsCollection getCells(int row) {
-        return getCells(byRowIndex(row));
-    }
-
-    /**
-     * Will be removed in 2.0
-     *
-     * @deprecated Use {@link #getRows(By)} with {@link Selectors#isVisible()}
-     * @return all rows
-     */
-    @Deprecated
-    ElementsCollection getAllLines();
 
     @Log
     Table sort(String columnId, SortDirection direction);

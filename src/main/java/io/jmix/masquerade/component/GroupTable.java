@@ -20,7 +20,7 @@ public interface GroupTable extends Component<GroupTable> {
      * <p>
      * Example:
      * <pre>
-     *    $c(GroupTable, 'tableId')
+     *    $j(GroupTable, 'tableId')
      *        .expand(withText('groupRowTextSubstring'))
      * </pre>
      *
@@ -35,7 +35,7 @@ public interface GroupTable extends Component<GroupTable> {
      * <p>
      * Example:
      * <pre>
-     *    $c(GroupTable, 'tableId')
+     *    $j(GroupTable, 'tableId')
      *        .collapse(withText('groupRowTextSubstring'))
      * </pre>
      *

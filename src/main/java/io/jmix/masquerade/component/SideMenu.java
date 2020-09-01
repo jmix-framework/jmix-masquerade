@@ -21,7 +21,7 @@ public interface SideMenu extends Component<SideMenu> {
      * <p>
      * Example:
      * <pre>
-     *     $c(SideMenu).openItem(UserBrowser, 'administration', 'sec$User.browse')
+     *     $j(SideMenu).openItem(UserBrowser, 'administration', 'sec$User.browse')
      * </pre>
      *
      * @param screenClass screen class to open
@@ -37,7 +37,7 @@ public interface SideMenu extends Component<SideMenu> {
      * <p>
      * Example:
      * <pre>
-     *     $c(SideMenu).openItem(new SideMenu.Menu(UserBrowser, 'administration', 'sec$User.browse'))
+     *     $j(SideMenu).openItem(new SideMenu.Menu(UserBrowser, 'administration', 'sec$User.browse'))
      * </pre>
      *
      * @param menu menu item
@@ -52,7 +52,7 @@ public interface SideMenu extends Component<SideMenu> {
      * <p>
      * Example:
      * <pre>
-     *     $c(SideMenu).openItem('administration', 'sec$User.browse')
+     *     $j(SideMenu).openItem('administration', 'sec$User.browse')
      * </pre>
      *
      * @param path path to menu item
