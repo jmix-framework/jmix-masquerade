@@ -4,7 +4,6 @@ jmix-masquerade
 Jmix UI testing library.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat" alt="license" title=""></a>
-<a href="https://travis-ci.org/cuba-platform/masquerade"><img src="https://travis-ci.org/cuba-platform/masquerade.svg?branch=master" alt="Build Status" title=""></a>
 
 ## Overview
 
@@ -336,7 +335,7 @@ def loginScreen = $j(LoginScreen)
 
 ## Run tests
 
-To run the test, first of all, you need to set ```jmix.testMode``` property to 
+To run the test, first of all, you need to set ```jmix.ui.testMode``` property to 
 true in the `application.properties` file in your Jmix application. After that you 
 should start the application using Studio or Gradle tasks. To start application 
 with Gradle, run the following tasks in the terminal:

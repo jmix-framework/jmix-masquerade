@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 Haulmont.
+ * Copyright 2020 Haulmont.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,63 +17,44 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'maven'
+    id 'maven-publish'
 }
 
-group 'io.jmix.masquerade'
+group = 'io.jmix.masquerade'
+archivesBaseName = 'jmix-masquerade'
+sourceCompatibility = 1.8
 
 if (rootProject.hasProperty('buildVersion')) {
     version rootProject.buildVersion
 } else {
-    version '1.0-SNAPSHOT'
+    version '0.1.0-SNAPSHOT'
 }
-
-sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
-}
+    if (rootProject.hasProperty('jmixRepoUrl')) {
+        maven {
+            url rootProject['jmixRepoUrl']
 
-task sourceJar(type: Jar) {
-    from sourceSets.main.java
-    from sourceSets.main.resources
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourceJar
-}
-
-if (rootProject.hasProperty('uploadUrl')) {
-    configurations {
-        deployerJars
-    }
-
-    dependencies {
-        deployerJars('org.apache.maven.wagon:wagon-http:2.12')
-    }
-
-    def uploadUrl = rootProject.uploadUrl
-    def uploadUser = rootProject.uploadUser
-    def uploadPassword = rootProject.uploadPassword
-
-    uploadArchives.configure {
-        repositories.mavenDeployer {
-            name = 'httpDeployer'
-            configuration = configurations.deployerJars
-            repository(url: uploadUrl) {
-                authentication(userName: uploadUser, password: uploadPassword)
+            if (rootProject.hasProperty('jmixRepoUser') && rootProject.hasProperty('jmixRepoPassword')) {
+                credentials {
+                    username rootProject['jmixRepoUser']
+                    password rootProject['jmixRepoPassword']
+                }
             }
         }
+    } else {
+        maven {
+            url "https://nexus.jmix.io/repository/public"
+        }
     }
-}
 
-build.dependsOn javadoc
+    jcenter()
+}
 
 dependencies {
     implementation 'com.leacox.motif:motif:0.1'
     implementation 'com.codeborne:selenide:5.14.0'
-    implementation ('org.jsoup:jsoup') {
+    implementation('org.jsoup:jsoup') {
         version {
             strictly '1.11.2'
         }
@@ -82,4 +63,40 @@ dependencies {
     testImplementation 'org.codehaus.groovy:groovy:3.0.5'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
     testImplementation 'org.slf4j:slf4j-simple:1.7.30'
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    from sourceSets.main.resources
+    archiveClassifier = 'sources'
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+publishing {
+    String jmixUploadUrl = rootProject.findProperty('jmixUploadUrl')
+    if (jmixUploadUrl) {
+        repositories {
+            maven {
+                url = version.endsWith('SNAPSHOT') ? "$jmixUploadUrl/snapshots" : "$jmixUploadUrl/releases"
+                credentials {
+                    username rootProject['jmixUploadUser']
+                    password rootProject['jmixUploadPassword']
+                }
+            }
+        }
+    }
+    publications {
+        javaMaven(MavenPublication) {
+            artifactId = archivesBaseName
+            from components.java
+        }
+    }
 }
