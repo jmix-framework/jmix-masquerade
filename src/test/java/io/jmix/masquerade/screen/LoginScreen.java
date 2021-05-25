@@ -42,7 +42,7 @@ public class LoginScreen extends Composite<LoginScreen> {
     @Wire
     protected Label welcomeLabel;
 
-    @FindBy(className = "c-login-caption")
+    @FindBy(className = "jmix-login-caption")
     protected Label welcomeLabelTest;
 
     public TextField getUsernameField() {

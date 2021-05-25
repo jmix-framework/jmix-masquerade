@@ -27,12 +27,12 @@ import static org.openqa.selenium.By.cssSelector;
 public class GroupTableImpl extends AbstractComponent<GroupTable> implements GroupTable {
 
     public static final String TABLE_CLASS_NAME = "v-table";
-    public static final String GROUP_ROW_CLASS_NAME = "c-group-row";
-    public static final String GROUP_ROW_CAPTION_CLASS_NAME = "c-grouptable-float";
+    public static final String GROUP_ROW_CLASS_NAME = "jmix-group-row";
+    public static final String GROUP_ROW_CAPTION_CLASS_NAME = "jmix-grouptable-float";
     public static final String EXPANDED_ROW_CLASS_NAME = "v-expanded";
 
-    public static final By CELL_EXPANDER = cssSelector("div[class*='c-grouptable-group-cell-expander']");
-    public static final By GROUP_ROW = cssSelector("tr.c-group-row");
+    public static final By CELL_EXPANDER = cssSelector("div[class*='jmix-grouptable-group-cell-expander']");
+    public static final By GROUP_ROW = cssSelector("tr.jmix-group-row");
 
     public GroupTableImpl(By by) {
         super(by);

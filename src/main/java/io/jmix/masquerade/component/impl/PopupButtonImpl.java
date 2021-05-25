@@ -128,7 +128,7 @@ public class PopupButtonImpl extends AbstractComponent<PopupButton> implements P
 
         @Override
         public List<String> getOptions() {
-            return $$(byChain(by, SPAN, className("c-cm-button-caption"))).texts();
+            return $$(byChain(by, SPAN, className("jmix-cm-button-caption"))).texts();
         }
     }
 }

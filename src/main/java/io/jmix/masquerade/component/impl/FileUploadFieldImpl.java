@@ -28,7 +28,7 @@ import static io.jmix.masquerade.sys.TagNames.INPUT;
 
 public class FileUploadFieldImpl extends AbstractComponent<FileUploadField> implements FileUploadField {
 
-    public static final By CLEAR_BUTTON = By.className("c-fileupload-clear");
+    public static final By CLEAR_BUTTON = By.className("jmix-fileupload-clear");
 
     public FileUploadFieldImpl(By by) {
         super(by);

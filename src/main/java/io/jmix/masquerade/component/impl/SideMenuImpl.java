@@ -26,8 +26,8 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClick
 
 public class SideMenuImpl extends AbstractComponent<SideMenu> implements SideMenu {
 
-    protected static final String SIDE_MENU_CONTAINER_CLASS_NAME = "c-sidemenu-container";
-    protected static final String SIDE_MENU_ITEM_HEADER_OPEN = "c-sidemenu-item-header-open";
+    protected static final String SIDE_MENU_CONTAINER_CLASS_NAME = "jmix-sidemenu-container";
+    protected static final String SIDE_MENU_ITEM_HEADER_OPEN = "jmix-sidemenu-item-header-open";
     protected static final String COLLAPSED_CLASS_NAME = "collapsed";
 
     protected static final By MENU_COLLAPSE_BUTTON = byJTestId("collapseMenuButton");
@@ -60,7 +60,7 @@ public class SideMenuImpl extends AbstractComponent<SideMenu> implements SideMen
     public void openItem(String... path) {
         for (String s : path) {
             String itemXpath = String.format(
-                    "//div[contains(@class, 'c-sidemenu-item') and @j-test-id=%s]",
+                    "//div[contains(@class, 'jmix-sidemenu-item') and @j-test-id=%s]",
                     Quotes.escape(s));
 
             SelenideElement menuItemElement = $(byXpath(itemXpath))

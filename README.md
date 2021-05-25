@@ -112,7 +112,7 @@ public class LoginScreen extends Composite<LoginScreen> {
     @Wire
     protected Label welcomeLabel;
 
-    @FindBy(className = "c-login-caption")
+    @FindBy(className = "jmix-login-caption")
     protected Label welcomeLabelTest;
 
     public TextField getUsernameField() {
@@ -259,7 +259,7 @@ If the component does not have the `j-test-id` parameter, you can use the
 like `name`, `className`, `id` and so on, which helps to identify the component.
 
 ```java
-@FindBy(className = "c-login-caption")
+@FindBy(className = "jmix-login-caption")
 public Label welcomeLabelTest;
 ```    
 
@@ -270,7 +270,7 @@ methods provided by Selenide. The name of the attribute can be any.
 ```java
 import com.codeborne.selenide.SelenideElement;
 
-@FindBy(className = "c-login-caption")
+@FindBy(className = "jmix-login-caption")
 public SelenideElement welcomeLabelTest;
 ```   
 

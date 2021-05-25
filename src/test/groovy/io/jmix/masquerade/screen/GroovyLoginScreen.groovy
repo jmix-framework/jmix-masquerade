@@ -37,6 +37,6 @@ class GroovyLoginScreen extends Composite<GroovyLoginScreen> {
     @Wire
     Label welcomeLabel
 
-    @FindBy(className = "c-login-caption")
+    @FindBy(className = "jmix-login-caption")
     Label welcomeLabelTest
 }
