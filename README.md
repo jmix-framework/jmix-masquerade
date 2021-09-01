@@ -20,46 +20,13 @@ It is based on:
 
 ## Creating test project 
     
-Create a simple Java project in IntelliJ IDEA. The project should have the 
-following structure:
-
-```
-+ src
-  + main 
-    + java
-  + test
-    + java
-      + com/company/demo
-+ build.gradle
-+ settings.gradle  
-```
-
-Here’s the complete `build.gradle` file:
+1. Create a simple Jmix project in IntelliJ IDEA. 
+2. Add the following dependencies to the `build.gradle` file:
 
 ```groovy
-apply plugin: 'java'
-
-group = 'com.company.demo'
-version = '0.1'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()    
-}
-
-dependencies {
-    testImplementation 'com.codeborne:selenide:5.14.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-    
-     //the library for the UI testing
-    testImplementation 'io.jmix.masquerade:jmix-masquerade:<check the latest version>'
-    
-    // enable logging
-    testImplementation 'org.slf4j:slf4j-simple:1.7.30'
-}
+// the library for the UI testing
+testImplementation 'com.codeborne:selenide:5.20.1'
+testImplementation 'io.jmix.masquerade:jmix-masquerade:<check the latest version>'
 ```
 
 ## Creating a test
@@ -86,34 +53,33 @@ The name of the attribute corresponds to the `j-test-id` attribute of a DOM
 element that corresponds to the UI component. 
 
 ```java
+package com.company.demo.screen;
+
 import io.jmix.masquerade.Wire;
 import io.jmix.masquerade.base.Composite;
-import io.jmix.masquerade.component.Button;
-import io.jmix.masquerade.component.ComboBox;
-import io.jmix.masquerade.component.Label;
-import io.jmix.masquerade.component.PasswordField;
-import io.jmix.masquerade.component.TextField;
+import io.jmix.masquerade.component.*;
 import org.openqa.selenium.support.FindBy;
 
 
 public class LoginScreen extends Composite<LoginScreen> {
-    @Wire
-    protected TextField usernameField;
 
     @Wire
-    protected PasswordField passwordField;
-
-    @Wire(path = {"loginFormLayout", "loginButton"})
-    protected Button loginButton;
+    private TextField usernameField;
 
     @Wire
-    protected ComboBox localesField;
+    private PasswordField passwordField;
+
+    @Wire(path = {"loginForm", "loginButton"})
+    private Button loginButton;
 
     @Wire
-    protected Label welcomeLabel;
+    private ComboBox localesField;
+
+    @Wire
+    private Label welcomeLabel;
 
     @FindBy(className = "jmix-login-caption")
-    protected Label welcomeLabelTest;
+    private Label welcomeLabelTest;
 
     public TextField getUsernameField() {
         return usernameField;
@@ -141,7 +107,7 @@ public class LoginScreen extends Composite<LoginScreen> {
 }
 ``` 
 
-Create a Java class in the `com.company.demo` package in the `src/test/java` folder. Name it `LoginScreenUiTest`. 
+Create a Java class in the `com.company.demo` package in the `src/test/java` folder. Name it `LoginUiTest`. 
 
 Create a new method and add ```@Test``` JUnit 5 annotation to it. The ```@Test``` 
 annotation tells JUnit 5 that the public void method can be run as a test case. 
@@ -150,51 +116,58 @@ You can use all JUnit 5 annotations to improve the tests. Also it is possible to
 use a set of assertion methods provided by JUnit 5.
  
 ```java
+package com.company.demo;
+
+import com.company.demo.screen.LoginScreen;
 import io.jmix.masquerade.component.Untyped;
-import io.jmix.masquerade.screen.LoginScreen;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Selenide.closeWindow;
 import static com.codeborne.selenide.Selenide.open;
 import static io.jmix.masquerade.Components.wire;
-import static io.jmix.masquerade.Conditions.EDITABLE;
-import static io.jmix.masquerade.Conditions.ENABLED;
-import static io.jmix.masquerade.Conditions.VISIBLE;
-import static io.jmix.masquerade.Conditions.caption;
+import static io.jmix.masquerade.Conditions.*;
 import static io.jmix.masquerade.Selectors.$j;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class LoginUiTest {
+
     @Test
     public void login() {
-        open("http://localhost:8080/app");
+        // open URL of an application
+        open("http://localhost:8080");
 
+        // obtain UI object
         LoginScreen loginScreen = $j(LoginScreen.class);
 
         assertNotNull(loginScreen.getUsernameField());
         assertNotNull(loginScreen.getPasswordField());
 
+        // fluent asserts
         loginScreen.getUsernameField()
                 .shouldBe(EDITABLE)
                 .shouldBe(ENABLED);
 
-        loginScreen.getUsernameField().setValue("masquerade");
-        loginScreen.getPasswordField().setValue("rulezzz");
+        // setting values
+        loginScreen.getUsernameField().setValue("admin");
+        loginScreen.getPasswordField().setValue("admin");
 
+        // fluent asserts
         loginScreen.getWelcomeLabelTest()
                 .shouldBe(VISIBLE);
 
+        // fluent asserts
         loginScreen.getLoginButton()
                 .shouldBe(VISIBLE)
                 .shouldBe(ENABLED)
                 .shouldHave(caption("Submit"));
 
-        String caption = loginScreen.getLoginButton().getCaption();
-        boolean enabled = loginScreen.getLoginButton().is(ENABLED);
-
-        Untyped loginFormLayout = wire(Untyped.class, "loginFormLayout");
-        loginFormLayout.shouldBe(VISIBLE);
+        Untyped loginForm = wire(Untyped.class, "loginForm");
+        loginForm.shouldBe(VISIBLE);
 
         loginScreen.getLoginButton().click();
+
+        // close the browser tab
+        closeWindow();
     }
 }
 ``` 
@@ -352,77 +325,57 @@ installation and your Java JUnit test suite.
 Creation of browser containers is fast, so it's actually quite feasible to have a 
 totally fresh browser instance for every test.
 
-First of all, you need to add the testcontaines dependency in the `build.gradle` file:
+First of all, you need to add the testcontainer dependencies to the `build.gradle` file:
 ```groovy
-apply plugin: 'java'
-
-group = 'com.company.demo'
-version = '0.1'
-
-sourceCompatibility = 1.8
-
-repositories {
-    mavenCentral()    
-}
-
-dependencies {
-    testImplementation 'com.codeborne:selenide:5.14.0'
-    testImplementation 'org.codehaus.groovy:groovy:3.0.5'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
-    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.6.2'
-
-    // testcontainers 
-    testImplementation 'org.testcontainers:selenium:1.14.3'
-    testImplementation 'org.testcontainers:junit-jupiter:1.14.3'
-    
-     // the library for the UI testing
-    testImplementation 'io.jmix.masquerade:jmix-masquerade:<check the latest version>'
-    
-    // enable logging
-    testImplementation 'org.slf4j:slf4j-simple:1.7.30'
-}
+// testcontainers
+testImplementation 'org.testcontainers:selenium:1.15.2'
+testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
 ```
 
 Secondly, you can create a JUnit 5 extension to run and configure a container with a browser.
-```groovy
-class ChromeExtension implements BeforeEachCallback, AfterEachCallback {
+```java
+package com.company.demo.extension;
 
-    private BrowserWebDriverContainer chrome
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testcontainers.containers.BrowserWebDriverContainer;
+
+public class ChromeExtension implements BeforeEachCallback, AfterEachCallback {
+
+    private BrowserWebDriverContainer browser;
 
     @Override
-    void beforeEach(ExtensionContext context) throws Exception {
-        chrome = new BrowserWebDriverContainer()
-                .withCapabilities(new ChromeOptions())
-        chrome.start()
-        WebDriverRunner.setWebDriver(browser.getWebDriver())
-        Selenide.open('/')
+    public void beforeEach(ExtensionContext context) throws Exception {
+        browser = new BrowserWebDriverContainer()
+                .withCapabilities(new ChromeOptions());
+        browser.start();
+        WebDriverRunner.setWebDriver(browser.getWebDriver());
     }
 
     @Override
-    void afterEach(ExtensionContext context) throws Exception {
-        WebDriverRunner.webDriver.manage().deleteAllCookies()
-        Selenide.closeWebDriver()
-        chrome.stop()
+    public void afterEach(ExtensionContext context) throws Exception {
+        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+        Selenide.closeWebDriver();
+        browser.stop();
     }
 }
 ```
 
 Thirdly, declare the JUnit 5 extension in your test using `@ExtendWith` annotation
-```groovy
+```java
 @ExtendWith(ChromeExtension)
-class ButtonSamplerUiTest {
+public class LoginUiTest {
 
     @Test
-    @DisplayName("Checks that user can click on simple button")
-    void clickOnSimpleButton() {
-        open('http://localhost:8080/app/button-simple')
+    public void login() {
+        open('http://localhost:8080')
 
-        $j(Button.class, 'helloButton')
-                .shouldHave(caption('Say Hello!'))
-                .click()
-
-        $j(Notification.class)
-                .shouldHave(caption('Hello, world!'))
+        LoginScreen loginScreen = $j(LoginScreen.class);
+        ...
     }
 }
 ```
