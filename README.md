@@ -5,7 +5,7 @@ Jmix UI testing library.
 
 <a href="http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat" alt="license" title=""></a>
 
-## Overview
+# Overview
 
 The library provides an ability to create UI tests for Jmix-based applications. 
 It can help you to write better tests.
@@ -16,26 +16,30 @@ It is based on:
 * Selenide
 * Selenium
 
-# Getting started
+You can find examples of using the library in the following projects:
+- https://github.com/jmix-projects/jmix-sample-ui-test
+- https://github.com/Haulmont/jmix-ui-tests
 
-## Creating test project 
-    
-1. Create a simple Jmix project in IntelliJ IDEA. 
-2. Add the following dependencies to the `build.gradle` file:
+# Usage
 
-    ```groovy
-    // the library for the UI testing
-    testImplementation 'com.codeborne:selenide:5.20.1'
-    testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
-    ```
-    Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
+Add the following dependencies to your `build.gradle` file:
 
-## Creating a test
+```groovy
+testImplementation 'com.codeborne:selenide:5.20.1'
+testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
+```
 
-In the `src/test/java` folder create a new package in the `com.company.demo` and name it `screen`. 
+Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
+
+
+# Creating tests
+
+Let's consider creating UI test on an example.
+
+In the `src/test/java` folder, create a new package in `com.company.demo` and name it `screen`. 
 Create a new Java class in this package and name it `LoginScreen`. This class 
-should be inherited from the `Composite\<T>` where `T` is the name of your 
-class. This class will be used as a helper class, usually it declares UI 
+should extend `Composite<T>` where `T` is the name of your 
+class under test. This class will be used as a helper class, usually it declares UI 
 components of an application screen / fragment / panel that is shown in a web page. 
 Also, all test methods can be declared here.
  
@@ -180,6 +184,151 @@ all the annotated fields inside of the LoginScreen class. After that, you can
 access the screen components as class attributes. You can check the attributes 
 visibility, get captions, set values, click the buttons and so on.
 
+# Running tests
+
+To run the test, first of all, you need to set ```jmix.ui.testMode``` property to 
+true in the `application.properties` file in your Jmix application. After that you 
+should start the application using Studio or Gradle tasks. To start application 
+with Gradle, run the following tasks in the terminal:
+
+    gradle bootRun
+
+## Webdriver containers
+
+[Testcontainers](https://www.testcontainers.org/modules/webdriver_containers/) can 
+be used to automatically instantiate and manage containers that include web browsers, 
+such as Chrome or Firefox. No need to have specific web browsers, or even a desktop 
+environment, installed on test servers. The only dependency is a working Docker 
+installation and your Java JUnit test suite.
+Creation of browser containers is fast, so it's actually quite feasible to have a 
+totally fresh browser instance for every test.
+
+First of all, you need to add the testcontainer dependencies to the `build.gradle` file:
+```groovy
+// testcontainers
+testImplementation 'org.testcontainers:selenium:1.15.2'
+testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
+```
+
+Secondly, you can create a JUnit 5 extension to run and configure a container with a browser.
+```java
+package com.company.demo.extension;
+
+import com.codeborne.selenide.Selenide;
+import com.codeborne.selenide.WebDriverRunner;
+import org.junit.jupiter.api.extension.AfterEachCallback;
+import org.junit.jupiter.api.extension.BeforeEachCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.testcontainers.containers.BrowserWebDriverContainer;
+
+public class ChromeExtension implements BeforeEachCallback, AfterEachCallback {
+
+    private BrowserWebDriverContainer browser;
+
+    @Override
+    public void beforeEach(ExtensionContext context) throws Exception {
+        browser = new BrowserWebDriverContainer()
+                .withCapabilities(new ChromeOptions());
+        browser.start();
+        WebDriverRunner.setWebDriver(browser.getWebDriver());
+    }
+
+    @Override
+    public void afterEach(ExtensionContext context) throws Exception {
+        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
+        Selenide.closeWebDriver();
+        browser.stop();
+    }
+}
+```
+
+Thirdly, declare the JUnit 5 extension in your test using `@ExtendWith` annotation
+```java
+@ExtendWith(ChromeExtension)
+public class LoginUiTest {
+
+    @Test
+    public void login() {
+        open('http://localhost:8080')
+
+        LoginScreen loginScreen = $j(LoginScreen.class);
+        ...
+    }
+}
+```
+
+## Locally installed browser drivers
+
+Please note that you need to download one of the latest versions of the web 
+driver depending on the browser you want to use to testing.
+For Chrome browser this is [chromedriver](http://chromedriver.chromium.org/downloads), 
+for Firefox this is [geckodriver](https://github.com/mozilla/geckodriver/releases).
+
+### Chrome browser
+
+If you run your tests in Chrome browser, you need to edit standard
+test configuration for the test project in IntelliJ. To do so, click the 
+*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
+drop-down list. In the VM options field, add the following:
+
+```
+-Dselenide.browser=chrome 
+-Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
+```
+
+where `<your_path>` is the path to the chrome driver on your computer.
+
+![Ui Chrome Test Configuration](images/chromeTestConfiguration.png)
+
+After that select the simple test or the test class you want to run, right 
+click on it and select *Debug* option.
+
+To run the tests using Gradle, add the following task to the `build.gradle` file:
+```groovy
+test {
+     systemProperty 'selenide.browser', System.getProperty('selenide.browser')
+     systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
+}
+```
+After that, run the following task in the terminal:
+```
+gradle test -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe
+```
+    
+where `<your_path>` is the path to the chrome driver on your computer.
+
+### Firefox browser
+
+If you run your tests in Firefox browser, you need to edit standard
+test configuration for the test project in IntelliJ. To do so, click the 
+*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
+drop-down list. In the VM options field, add the following:
+
+```
+-Dselenide.browser=firefox
+-Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
+```
+where `<your_path>` is the path to the firefox driver on your computer.
+
+![Ui Firefox Test Configuration](images/firefoxTestConfiguration.png)
+
+After that select the simple test or the test class you want to run, right 
+click on it and select *Debug* option.
+
+To run the tests using Gradle, add the following task to the `build.gradle` file:
+```groovy
+test {
+     systemProperty 'selenide.browser', System.getProperty('selenide.browser')
+     systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
+}
+```
+After that, run the following task in the terminal:
+```
+gradle test -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe
+```
+where `<your_path>` is the path to the firefox driver on your computer.
+
 # Tips & Tricks
 
 Here are some useful tips on how to work with the library.
@@ -306,148 +455,3 @@ declarations and makes your code shorter.
 ```groovy
 def loginScreen = $j(LoginScreen)
 ```
-
-## Run tests
-
-To run the test, first of all, you need to set ```jmix.ui.testMode``` property to 
-true in the `application.properties` file in your Jmix application. After that you 
-should start the application using Studio or Gradle tasks. To start application 
-with Gradle, run the following tasks in the terminal:
-
-    gradle bootRun
-
-### Webdriver containers
-
-[Testcontainers](https://www.testcontainers.org/modules/webdriver_containers/) can 
-be used to automatically instantiate and manage containers that include web browsers, 
-such as Chrome or Firefox. No need to have specific web browsers, or even a desktop 
-environment, installed on test servers. The only dependency is a working Docker 
-installation and your Java JUnit test suite.
-Creation of browser containers is fast, so it's actually quite feasible to have a 
-totally fresh browser instance for every test.
-
-First of all, you need to add the testcontainer dependencies to the `build.gradle` file:
-```groovy
-// testcontainers
-testImplementation 'org.testcontainers:selenium:1.15.2'
-testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
-```
-
-Secondly, you can create a JUnit 5 extension to run and configure a container with a browser.
-```java
-package com.company.demo.extension;
-
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeEachCallback;
-import org.junit.jupiter.api.extension.ExtensionContext;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-
-public class ChromeExtension implements BeforeEachCallback, AfterEachCallback {
-
-    private BrowserWebDriverContainer browser;
-
-    @Override
-    public void beforeEach(ExtensionContext context) throws Exception {
-        browser = new BrowserWebDriverContainer()
-                .withCapabilities(new ChromeOptions());
-        browser.start();
-        WebDriverRunner.setWebDriver(browser.getWebDriver());
-    }
-
-    @Override
-    public void afterEach(ExtensionContext context) throws Exception {
-        WebDriverRunner.getWebDriver().manage().deleteAllCookies();
-        Selenide.closeWebDriver();
-        browser.stop();
-    }
-}
-```
-
-Thirdly, declare the JUnit 5 extension in your test using `@ExtendWith` annotation
-```java
-@ExtendWith(ChromeExtension)
-public class LoginUiTest {
-
-    @Test
-    public void login() {
-        open('http://localhost:8080')
-
-        LoginScreen loginScreen = $j(LoginScreen.class);
-        ...
-    }
-}
-```
-
-### Locally installed browser drivers
-
-Please note that you need to download one of the latest versions of the web 
-driver depending on the browser you want to use to testing.
-For Chrome browser this is [chromedriver](http://chromedriver.chromium.org/downloads), 
-for Firefox this is [geckodriver](https://github.com/mozilla/geckodriver/releases).
-
-#### Chrome browser
-
-If you run your tests in Chrome browser, you need to edit standard
-test configuration for the test project in IntelliJ. To do so, click the 
-*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
-drop-down list. In the VM options field, add the following:
-
-```
--Dselenide.browser=chrome 
--Dwebdriver.chrome.driver=<your_path>/chromedriver.exe 
-```
-
-where `<your_path>` is the path to the chrome driver on your computer.
-
-![Ui Chrome Test Configuration](images/chromeTestConfiguration.png)
-
-After that select the simple test or the test class you want to run, right 
-click on it and select *Debug* option.
-
-To run the tests using Gradle, add the following task to the `build.gradle` file:
-```groovy
-test {
-     systemProperty 'selenide.browser', System.getProperty('selenide.browser')
-     systemProperty 'webdriver.chrome.driver', System.getProperty('webdriver.chrome.driver')
-}
-```
-After that, run the following task in the terminal:
-```
-gradle test -Dselenide.browser=chrome -Dwebdriver.chrome.driver=<your_path>/chromedriver.exe
-```
-    
-where `<your_path>` is the path to the chrome driver on your computer.
-
-#### Firefox browser
-
-If you run your tests in Firefox browser, you need to edit standard
-test configuration for the test project in IntelliJ. To do so, click the 
-*Select Run/Debug Configuration* button and select *Edit Configurations*  in the 
-drop-down list. In the VM options field, add the following:
-
-```
--Dselenide.browser=firefox
--Dwebdriver.gecko.driver=<your_path>/geckodriver.exe 
-```
-where `<your_path>` is the path to the firefox driver on your computer.
-
-![Ui Firefox Test Configuration](images/firefoxTestConfiguration.png)
-
-After that select the simple test or the test class you want to run, right 
-click on it and select *Debug* option.
-
-To run the tests using Gradle, add the following task to the `build.gradle` file:
-```groovy
-test {
-     systemProperty 'selenide.browser', System.getProperty('selenide.browser')
-     systemProperty 'webdriver.gecko.driver', System.getProperty('webdriver.gecko.driver')
-}
-```
-After that, run the following task in the terminal:
-```
-gradle test -Dselenide.browser=firefox -Dwebdriver.gecko.driver=<your_path>/geckodriver.exe
-```
-where `<your_path>` is the path to the firefox driver on your computer.
