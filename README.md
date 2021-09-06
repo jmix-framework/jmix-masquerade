@@ -1,26 +1,17 @@
 jmix-masquerade
 ==========
 
+Jmix UI testing library. 
+
 <a href="http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat" alt="license" title=""></a>
 
-Jmix UI testing library. 
+# Overview
 
 With the help of this library, you can create end-to-end tests in Java or Kotlin and run them manually or in your CI environment.
 
 Masquerade allows you to separate test scenarios from the complexity of the UI elements under test. Firstly, you describe the UI screen content declaratively in a simple Java or Kotlin class with annotated fields, and then you use this class in test scenarios as a substitute of the real UI elements. 
  
 Masquerade is based on Selenide and Selenium.
-
-# Overview
-
-The library provides an ability to create UI tests for Jmix-based applications. 
-It can help you to write better tests.
-
-It is based on:
-
-* Java
-* Selenide
-* Selenium
 
 You can find examples of using the library in the following projects:
 - https://github.com/jmix-projects/jmix-sample-ui-test
