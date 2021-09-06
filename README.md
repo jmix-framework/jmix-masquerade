@@ -23,11 +23,12 @@ It is based on:
 1. Create a simple Jmix project in IntelliJ IDEA. 
 2. Add the following dependencies to the `build.gradle` file:
 
-```groovy
-// the library for the UI testing
-testImplementation 'com.codeborne:selenide:5.20.1'
-testImplementation 'io.jmix.masquerade:jmix-masquerade:<check the latest version>'
-```
+    ```groovy
+    // the library for the UI testing
+    testImplementation 'com.codeborne:selenide:5.20.1'
+    testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
+    ```
+    Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
 
 ## Creating a test
 
