@@ -20,7 +20,7 @@ You can find examples of using the library in the following projects:
 - https://github.com/jmix-projects/jmix-sample-ui-test
 - https://github.com/Haulmont/jmix-ui-tests
 
-# Usage
+# Installation
 
 Add the following dependencies to your `build.gradle` file:
 
