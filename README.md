@@ -24,10 +24,11 @@ Add the following dependencies to your `build.gradle` file:
 ```groovy
 testImplementation 'com.codeborne:selenide:5.20.1'
 testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
-implementation('org.jsoup:jsoup') {
+  implementation('org.jsoup:jsoup') {
         version {
             strictly '1.11.2'
         }
+    }
 ```
 
 Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
