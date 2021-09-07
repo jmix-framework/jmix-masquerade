@@ -7,7 +7,7 @@ Jmix UI testing library.
 
 # Overview
 
-With the help of this library, you can create end-to-end tests in Java or Kotlin and run them manually or in your CI environment.
+With the help of this library, you can create end-to-end tests for your Jmix application in Java or Kotlin and run them manually or in your CI environment.
 
 Masquerade allows you to separate test scenarios from the complexity of the UI elements under test. Firstly, you describe the UI screen content declaratively in a simple Java or Kotlin class with annotated fields, and then you use this class in test scenarios as a substitute of the real UI elements. 
  
@@ -22,13 +22,13 @@ You can find examples of using the library in the following projects:
 Add the following dependencies to your `build.gradle` file:
 
 ```groovy
+implementation('org.jsoup:jsoup') {
+    version {
+        strictly '1.11.2'
+    }
+}
 testImplementation 'com.codeborne:selenide:5.20.1'
 testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
-  implementation('org.jsoup:jsoup') {
-        version {
-            strictly '1.11.2'
-        }
-    }
 ```
 
 Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
