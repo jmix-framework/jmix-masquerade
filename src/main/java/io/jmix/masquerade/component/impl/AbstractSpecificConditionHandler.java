@@ -23,6 +23,8 @@ import io.jmix.masquerade.condition.SpecificConditionContext;
 import io.jmix.masquerade.condition.SpecificConditionHandler;
 import com.leacox.motif.MatchException;
 
+import java.time.Duration;
+
 @SuppressWarnings("unchecked")
 public abstract class AbstractSpecificConditionHandler<T>
         implements SpecificConditionHandler, SelenideElementWrapper<T> {
@@ -55,9 +57,25 @@ public abstract class AbstractSpecificConditionHandler<T>
     }
 
     @Override
+    public T should(Condition condition, Duration duration) {
+        SpecificConditionContext.with(this, () ->
+                getDelegate().should(condition, duration)
+        );
+        return (T) this;
+    }
+
+    @Override
     public T shouldNot(Condition... conditions) {
         SpecificConditionContext.with(this, () ->
                 getDelegate().shouldNot(conditions)
+        );
+        return (T) this;
+    }
+
+    @Override
+    public T shouldNot(Condition condition, Duration duration) {
+        SpecificConditionContext.with(this, () ->
+                getDelegate().shouldNot(condition, duration)
         );
         return (T) this;
     }
@@ -71,9 +89,25 @@ public abstract class AbstractSpecificConditionHandler<T>
     }
 
     @Override
+    public T shouldHave(Condition condition, Duration duration) {
+        SpecificConditionContext.with(this, () ->
+                getDelegate().shouldHave(condition, duration)
+        );
+        return (T) this;
+    }
+
+    @Override
     public T shouldBe(Condition... conditions) {
         SpecificConditionContext.with(this, () ->
                 getDelegate().shouldBe(conditions)
+        );
+        return (T) this;
+    }
+
+    @Override
+    public T shouldBe(Condition condition, Duration duration) {
+        SpecificConditionContext.with(this, () ->
+                getDelegate().shouldBe(condition, duration)
         );
         return (T) this;
     }
@@ -87,6 +121,14 @@ public abstract class AbstractSpecificConditionHandler<T>
     }
 
     @Override
+    public T shouldNotHave(Condition condition, Duration duration) {
+        SpecificConditionContext.with(this, () ->
+                getDelegate().shouldNotHave(condition, duration)
+        );
+        return (T) this;
+    }
+
+    @Override
     public T shouldNotBe(Condition... conditions) {
         SpecificConditionContext.with(this, () ->
                 getDelegate().shouldNotBe(conditions)
@@ -95,33 +137,9 @@ public abstract class AbstractSpecificConditionHandler<T>
     }
 
     @Override
-    public T waitUntil(Condition condition, long timeoutMilliseconds) {
+    public T shouldNotBe(Condition condition, Duration duration) {
         SpecificConditionContext.with(this, () ->
-                getDelegate().waitUntil(condition, timeoutMilliseconds)
-        );
-        return (T) this;
-    }
-
-    @Override
-    public T waitUntil(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
-        SpecificConditionContext.with(this, () ->
-                getDelegate().waitUntil(condition, timeoutMilliseconds, pollingIntervalMilliseconds)
-        );
-        return (T) this;
-    }
-
-    @Override
-    public T waitWhile(Condition condition, long timeoutMilliseconds) {
-        SpecificConditionContext.with(this, () ->
-                getDelegate().waitWhile(condition, timeoutMilliseconds)
-        );
-        return (T) this;
-    }
-
-    @Override
-    public T waitWhile(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
-        SpecificConditionContext.with(this, () ->
-                getDelegate().waitWhile(condition, timeoutMilliseconds, pollingIntervalMilliseconds)
+                getDelegate().shouldNotBe(condition, duration)
         );
         return (T) this;
     }

@@ -17,6 +17,8 @@
 package io.jmix.masquerade;
 
 import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.selector.ByText;
+import com.codeborne.selenide.selector.WithText;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.By.ByClassName;
@@ -268,7 +270,7 @@ public class Selectors extends com.codeborne.selenide.Selectors {
         }
     }
 
-    public static class ByTargetText extends com.codeborne.selenide.Selectors.ByText {
+    public static class ByTargetText extends ByText {
         public ByTargetText(String elementText) {
             super(elementText);
         }
@@ -278,7 +280,7 @@ public class Selectors extends com.codeborne.selenide.Selectors {
         }
     }
 
-    public static class WithTargetText extends com.codeborne.selenide.Selectors.WithText {
+    public static class WithTargetText extends WithText {
         public WithTargetText(String elementText) {
             super(elementText);
         }

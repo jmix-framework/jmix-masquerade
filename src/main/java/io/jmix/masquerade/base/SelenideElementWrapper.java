@@ -19,6 +19,8 @@ package io.jmix.masquerade.base;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
+
 @SuppressWarnings("unchecked")
 public interface SelenideElementWrapper<T> {
     SelenideElement getDelegate();
@@ -40,8 +42,18 @@ public interface SelenideElementWrapper<T> {
         return (T) this;
     }
 
+    default T should(Condition condition, Duration duration) {
+        getDelegate().should(condition, duration);
+        return (T) this;
+    }
+
     default T shouldHave(Condition... condition) {
         getDelegate().shouldHave(condition);
+        return (T) this;
+    }
+
+    default T shouldHave(Condition condition, Duration duration) {
+        getDelegate().shouldHave(condition, duration);
         return (T) this;
     }
 
@@ -50,8 +62,18 @@ public interface SelenideElementWrapper<T> {
         return (T) this;
     }
 
+    default T shouldBe(Condition condition, Duration duration) {
+        getDelegate().shouldBe(condition, duration);
+        return (T) this;
+    }
+
     default T shouldNot(Condition... condition) {
         getDelegate().shouldNot(condition);
+        return (T) this;
+    }
+
+    default T shouldNot(Condition condition, Duration duration) {
+        getDelegate().shouldNot(condition, duration);
         return (T) this;
     }
 
@@ -60,28 +82,18 @@ public interface SelenideElementWrapper<T> {
         return (T) this;
     }
 
+    default T shouldNotHave(Condition condition, Duration duration) {
+        getDelegate().shouldNotHave(condition, duration);
+        return (T) this;
+    }
+
     default T shouldNotBe(Condition... condition) {
         getDelegate().shouldNotBe(condition);
         return (T) this;
     }
 
-    default T waitUntil(Condition condition, long timeoutMilliseconds) {
-        getDelegate().waitUntil(condition, timeoutMilliseconds);
-        return (T) this;
-    }
-
-    default T waitUntil(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
-        getDelegate().waitUntil(condition, timeoutMilliseconds, pollingIntervalMilliseconds);
-        return (T) this;
-    }
-
-    default T waitWhile(Condition condition, long timeoutMilliseconds) {
-        getDelegate().waitWhile(condition, timeoutMilliseconds);
-        return (T) this;
-    }
-
-    default T waitWhile(Condition condition, long timeoutMilliseconds, long pollingIntervalMilliseconds) {
-        getDelegate().waitWhile(condition, timeoutMilliseconds, pollingIntervalMilliseconds);
+    default T shouldNotBe(Condition condition, Duration duration) {
+        getDelegate().shouldNotBe(condition, duration);
         return (T) this;
     }
 

@@ -47,7 +47,7 @@ repositories {
 
 dependencies {
     implementation 'com.leacox.motif:motif:0.1'
-    implementation 'com.codeborne:selenide:5.20.1'
+    implementation 'com.codeborne:selenide:6.5.2'
     implementation('org.jsoup:jsoup') {
         version {
             strictly '1.11.2'
@@ -55,7 +55,7 @@ dependencies {
     }
 
     testImplementation 'org.codehaus.groovy:groovy:3.0.7'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'org.slf4j:slf4j-simple:1.7.30'
 }
 
