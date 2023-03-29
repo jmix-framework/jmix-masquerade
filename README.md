@@ -213,8 +213,8 @@ totally fresh browser instance for every test.
 First of all, you need to add the testcontainer dependencies to the `build.gradle` file:
 ```groovy
 // testcontainers
-testImplementation 'org.testcontainers:selenium:1.15.2'
-testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
+testImplementation 'org.testcontainers:selenium:1.16.3'
+testImplementation 'org.testcontainers:junit-jupiter:1.16.3'
 ```
 
 Secondly, you can create a JUnit 5 extension to run and configure a container with a browser.
@@ -257,7 +257,7 @@ public class LoginUiTest {
 
     @Test
     public void login() {
-        open('http://localhost:8080')
+        open('http://localhost:8080');
 
         LoginScreen loginScreen = $j(LoginScreen.class);
         ...
