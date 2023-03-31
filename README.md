@@ -27,17 +27,18 @@ implementation('org.jsoup:jsoup') {
         strictly '1.11.2'
     }
 }
-testImplementation 'com.codeborne:selenide:6.6.1'
+testImplementation 'com.codeborne:selenide:6.12.4'
 testImplementation 'io.jmix.masquerade:jmix-masquerade:<latest version>'
 ```
 
 Get the latest version from the [list of releases](https://github.com/Haulmont/jmix-masquerade/releases).
 
 ## Table of compatibility
-|  Masquerade   | Selenide |
-|:-------------:|:--------:|
-|     1.1.x     |  6.6.1   |
-|     1.0.x     |  5.20.1  |
+| Masquerade | Selenide |
+|:----------:|:--------:|
+|   1.2.x    |  6.12.4  |
+|   1.1.x    |  6.6.1   |
+|   1.0.x    |  5.20.1  |
 
 # Creating tests
 
@@ -213,8 +214,8 @@ totally fresh browser instance for every test.
 First of all, you need to add the testcontainer dependencies to the `build.gradle` file:
 ```groovy
 // testcontainers
-testImplementation 'org.testcontainers:selenium:1.15.2'
-testImplementation 'org.testcontainers:junit-jupiter:1.15.2'
+testImplementation 'org.testcontainers:selenium:1.17.6'
+testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
 ```
 
 Secondly, you can create a JUnit 5 extension to run and configure a container with a browser.
